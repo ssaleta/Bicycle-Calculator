@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Bicycle-Calculator</string>
+    <string name="action_settings">Settings</string>
+    <string name="action_informations">Informations</string>
+    <string name="rear_cog">Cog</string>
+    <string name="set_cog">Set cog</string>
+    <string name="chainring">Chainring</string>
+    <string name="set_chainring">Set chainring</string>
+    <string name="gear_ratio">Gear ratio</string>
+    <string name="skid_patch">Skid patch</string>
+    <string name="calculate_btn">Calculate</string>
+    <string name="cadence">Cadence</string>
+    <string name="cadence_information">is the number of revolutions of the crank per minute. </string>
+    <string name="skid_pathes">Skid Pathes</string>
+    <string name="skid_pathes_information">it is skid (stop wheel) on the same section of the tire</string>
+</resources>
+
+
