@@ -43,11 +43,37 @@
         android:hint="@string/set_cog"
         android:inputType="number" />
 
+
+    <Button
+        android:id="@+id/calculate_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/image_cog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:onClick="calculate"
+        android:text="@string/calculate_btn" />
+
+    <TextView
+        android:id="@+id/cadence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/set_cog"
+        android:text="@string/cadence"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+    <EditText
+        android:id="@+id/show_set_cadence"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/cadence"
+        android:hint="@string/set_cadence"/>
     <TextView
         android:id="@+id/gear_ratio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_cog"
+        android:layout_below="@+id/show_set_cadence"
         android:layout_marginTop="20dp"
         android:text="@string/gear_ratio"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -65,7 +91,7 @@
         android:id="@+id/skid_patch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_cog"
+        android:layout_below="@+id/show_set_cadence"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/gear_ratio"
@@ -106,16 +132,30 @@
         android:layout_marginLeft="4dp"
         android:layout_toRightOf="@+id/show_skid_patch_number_for_ambidextrous"
         android:text="(ambidextrous)" />
-
-    <Button
-        android:id="@+id/calculate_btn"
+    <TextView
+        android:id="@+id/speed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/show_skid_patch"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:onClick="calculate"
-        android:text="@string/calculate_btn" />
+        android:layout_below="@id/show_gear_ratio"
+        android:layout_marginTop="20dp"
+        android:text="@string/speed"
+        android:textAppearance="?android:attr/textAppearanceMedium"/>
+    <TextView
+        android:id="@+id/show_speed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/speed"
+        android:layout_alignLeft="@+id/speed"
+        android:text="8"
+        />
+    <TextView
+        android:id="@+id/kph"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/speed"
+        android:text="@string/kph"
+        android:layout_toRightOf="@+id/show_speed"
+        android:layout_marginLeft="4dp"/>
 
     <ImageView
         android:layout_width="wrap_content"
