@@ -1,257 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout
+    android:id="@+id/coordinatorLayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".MainActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.example.sebastian.cadence.MainActivity"
-    tools:showIn="@layout/activity_main">
-
-    <TextView
-        android:id="@+id/chainring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chainring"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/set_chainring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/chainring"
-        android:hint="@string/set_chainring"
-        android:inputType="numberDecimal" />
-
-    <TextView
-        android:id="@+id/cog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/set_chainring"
-        android:text="@string/rear_cog"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <EditText
-        android:id="@+id/set_cog"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cog"
-        android:hint="@string/set_cog"
-        android:inputType="number" />
-
-
-    <Button
-        android:id="@+id/calculate_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/image_cog"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:onClick="calculate"
-        android:text="@string/calculate_btn" />
-
-    <TextView
-        android:id="@+id/cadence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/set_cog"
-        android:text="@string/cadence"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-
-    <EditText
-        android:id="@+id/show_set_cadence"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/cadence"
-        android:hint="@string/set_cadence"
-        android:inputType="numberDecimal"/>
-    <TextView
-        android:id="@+id/gear_ratio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/show_set_cadence"
-        android:layout_marginTop="20dp"
-        android:text="@string/gear_ratio"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/show_gear_ratio"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/gear_ratio"
-        android:layout_alignStart="@+id/gear_ratio"
-        android:layout_below="@+id/gear_ratio"
-        android:layout_marginLeft="20dp" />
-
-    <TextView
-        android:id="@+id/skid_patch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/show_set_cadence"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_toRightOf="@+id/gear_ratio"
-        android:text="@string/skid_patch"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/show_skid_patch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/skid_patch"
-        android:layout_alignStart="@+id/skid_patch"
-        android:layout_below="@id/skid_patch"
-        android:layout_marginLeft="20dp" />
-
-    <TextView
-        android:id="@+id/show_skid_patch_for_ambidextrous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/skid_patch"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/show_skid_patch"
-        android:text="or" />
-
-    <TextView
-        android:id="@+id/show_skid_patch_number_for_ambidextrous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/skid_patch"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/show_skid_patch_for_ambidextrous" />
-
-    <TextView
-        android:id="@+id/ambidextrous"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/skid_patch"
-        android:layout_marginLeft="4dp"
-        android:layout_toRightOf="@+id/show_skid_patch_number_for_ambidextrous"
-        android:text="(ambidextrous)" />
-    <TextView
-        android:id="@+id/speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/show_gear_ratio"
-        android:layout_marginTop="20dp"
-        android:text="@string/speed"
-        android:textAppearance="?android:attr/textAppearanceMedium"/>
-    <TextView
-        android:id="@+id/show_speed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/speed"
-        android:layout_alignLeft="@+id/speed"
-        android:text="8"
-        />
-    <TextView
-        android:id="@+id/kph"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/speed"
-        android:text="@string/kph"
-        android:layout_toRightOf="@+id/show_speed"
-        android:layout_marginLeft="4dp"/>
-
+    tools:showIn="@layout/activity_main"
+    android:orientation="vertical">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/image_cog"
-        android:src="@drawable/cog"
-        android:layout_toRightOf="@id/cog"
-        android:layout_marginLeft="50dp"
-        android:layout_below="@id/set_chainring"/>
-
-
-    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/fixed_photo"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_below="@id/show_speed"
-        android:layout_marginTop="5dp"
-        android:stretchColumns="1">
-        <TableRow>
-            <TextView
-            android:layout_column="1"
-                android:text="@string/cadence"
-                android:padding="3dip"/>
-            <TextView
-                android:text="50"
-                android:padding="3dip"/>
-            <TextView
-                android:text="60"
-                android:padding="3dip"/>
-            <TextView
-                android:text="70"
-                android:padding="3dip"/>
-            <TextView
-                android:text="80"
-                android:padding="3dip"/>
-            <TextView
-                android:text="90"
-                android:padding="3dip"/>
-            <TextView
-                android:text="100"
-                android:padding="3dip"/>
-            <TextView
-                android:text="110"
-                android:padding="3dip"/>
-            <TextView
-                android:text="120"
-                android:padding="3dip"/>
-            <TextView
-                android:text="130"
-                android:padding="3dip"/>
-            <TextView
-                android:text="140"
-                android:padding="3dip"/>
-            <TextView
-                android:text="150"
-                android:padding="3dip"/>
-        </TableRow>
-        <TableRow>
-        <TextView
-            android:layout_column="1"
-            android:text="@string/speed"
-            android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_50"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_60"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_70"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_80"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_90"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_100"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_110"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_120"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_130"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_140"
-                android:padding="3dip"/>
-            <TextView
-                android:id="@+id/speed_150"
-                android:padding="3dip"/>
-        </TableRow>
-        </TableLayout>
-</RelativeLayout>
-
+        android:layout_height="match_parent"
+        android:src="@drawable/fixed_bicycle"
+        android:clickable="true"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        />
+    <ImageView
+        android:id="@+id/road_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/road_bicycle"
+        android:clickable="true"
+        android:layout_weight="1"
+        android:scaleType="fitCenter"
+        />
+    </LinearLayout>
+    </android.support.design.widget.CoordinatorLayout>
