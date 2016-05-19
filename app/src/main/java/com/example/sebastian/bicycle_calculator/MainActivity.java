@@ -43,6 +43,23 @@ public class MainActivity extends AppCompatActivity {
     TextView showSkidAmbidextrous;
     @Bind(R.id.calculate_btn)
     Button calculateBtn;
+    @Bind(R.id.cadence) TextView cadence;
+    @Bind(R.id.show_set_cadence) EditText showCadence;
+    @Bind(R.id.speed) TextView speed;
+    @Bind(R.id.show_speed) TextView showSpeed;
+    @Bind(R.id.speed_50) TextView speed50;
+    @Bind(R.id.speed_60) TextView speed60;
+    @Bind(R.id.speed_70) TextView speed70;
+    @Bind(R.id.speed_80) TextView speed80;
+    @Bind(R.id.speed_90) TextView speed90;
+    @Bind(R.id.speed_100) TextView speed100;
+    @Bind(R.id.speed_110) TextView speed110;
+    @Bind(R.id.speed_120) TextView speed120;
+    @Bind(R.id.speed_130) TextView speed130;
+    @Bind(R.id.speed_140) TextView speed140;
+    @Bind(R.id.speed_150) TextView speed150;
+
+
 
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -66,17 +83,57 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void checkSkidPatchAndRatio() {
-        Cadence cadence = new Cadence(Double.parseDouble(setChainring.getText().toString()), Double.parseDouble(setCog.getText().toString()));
+        Cadence cadence = new Cadence(Double.parseDouble(setChainring.getText().toString()), Double.parseDouble(setCog.getText().toString()), Double.parseDouble(showCadence.getText().toString()));
         Double ratio = cadence.getRatio();
         DecimalFormat df = new DecimalFormat("##.##");
+        DecimalFormat sp = new DecimalFormat("##.#");
         String ratioString = df.format(ratio);
         Double skidPatch = cadence.getSkidPatch();
         String skidPatchToString = df.format(skidPatch);
         Double ambidextrous = cadence.getAmbidextrous();
         String ambidextrousToString = df.format(ambidextrous);
+        Double speed = cadence.getSpeed();
+        String speedToString = df.format(speed);
         showGearRatio.setText(ratioString);
         showSkidPatch.setText(skidPatchToString);
         showSkidAmbidextrous.setText(ambidextrousToString);
+        showSpeed.setText(speedToString);
+
+      /*  Double speed50 = cadence.getSpeed50();
+        String speed50ToString = df.format(speed50);
+        Double speed60 = cadence.getSpeed60();
+        String speed60ToString = df.format(speed60);
+        Double speed70 = cadence.getSpeed70();
+        String speed70ToString = df.format(speed70);
+        Double speed80 = cadence.getSpeed80();
+        String speed80ToString = df.format(speed80);
+        Double speed90 = cadence.getSpeed90();
+        String speed90ToString = df.format(speed90);
+        Double speed100 = cadence.getSpeed();
+        String speed100ToString = df.format(speed100);
+        Double speed110 = cadence.getSpeed110();
+        String speed110ToString = df.format(speed110);
+        Double speed120 = cadence.getSpeed120();
+        String speed120ToString = df.format(speed120);
+        Double speed130 = cadence.getSpeed130();
+        String speed130ToString = df.format(speed130);
+        Double speed140 = cadence.getSpeed140();
+        String speedToString140 = df.format(speed140);
+        Double speed150 = cadence.getSpeed150();
+        String speedToString150 = df.format(speed150);*/
+
+        speed50.setText(sp.format(cadence.getSpeed50()));
+        speed60.setText(sp.format(cadence.getSpeed60()));
+        speed70.setText(sp.format(cadence.getSpeed70()));
+        speed80.setText(sp.format(cadence.getSpeed80()));
+        speed90.setText(sp.format(cadence.getSpeed90()));
+        speed100.setText(sp.format(cadence.getSpeed100()));
+        speed110.setText(sp.format(cadence.getSpeed110()));
+        speed120.setText(sp.format(cadence.getSpeed120()));
+        speed130.setText(sp.format(cadence.getSpeed130()));
+        speed140.setText(sp.format(cadence.getSpeed140()));
+        speed150.setText(sp.format(cadence.getSpeed150()));
+
     }
 
     public void createDialogInformation() {

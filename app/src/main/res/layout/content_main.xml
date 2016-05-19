@@ -68,7 +68,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/cadence"
-        android:hint="@string/set_cadence"/>
+        android:hint="@string/set_cadence"
+        android:inputType="numberDecimal"/>
     <TextView
         android:id="@+id/gear_ratio"
         android:layout_width="wrap_content"
@@ -165,5 +166,92 @@
         android:layout_toRightOf="@id/cog"
         android:layout_marginLeft="50dp"
         android:layout_below="@id/set_chainring"/>
+
+
+    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_below="@id/show_speed"
+        android:layout_marginTop="5dp"
+        android:stretchColumns="1">
+        <TableRow>
+            <TextView
+            android:layout_column="1"
+                android:text="@string/cadence"
+                android:padding="3dip"/>
+            <TextView
+                android:text="50"
+                android:padding="3dip"/>
+            <TextView
+                android:text="60"
+                android:padding="3dip"/>
+            <TextView
+                android:text="70"
+                android:padding="3dip"/>
+            <TextView
+                android:text="80"
+                android:padding="3dip"/>
+            <TextView
+                android:text="90"
+                android:padding="3dip"/>
+            <TextView
+                android:text="100"
+                android:padding="3dip"/>
+            <TextView
+                android:text="110"
+                android:padding="3dip"/>
+            <TextView
+                android:text="120"
+                android:padding="3dip"/>
+            <TextView
+                android:text="130"
+                android:padding="3dip"/>
+            <TextView
+                android:text="140"
+                android:padding="3dip"/>
+            <TextView
+                android:text="150"
+                android:padding="3dip"/>
+        </TableRow>
+        <TableRow>
+        <TextView
+            android:layout_column="1"
+            android:text="@string/speed"
+            android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_50"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_60"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_70"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_80"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_90"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_100"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_110"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_120"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_130"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_140"
+                android:padding="3dip"/>
+            <TextView
+                android:id="@+id/speed_150"
+                android:padding="3dip"/>
+        </TableRow>
+        </TableLayout>
 </RelativeLayout>
 

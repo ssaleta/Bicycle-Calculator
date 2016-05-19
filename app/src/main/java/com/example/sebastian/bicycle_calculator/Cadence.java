@@ -2,14 +2,135 @@ package com.example.sebastian.bicycle_calculator;
 
 /**
  * Created by Sebastian on 2016-05-11.
- */public class Cadence {
+ */
+public class Cadence {
+
+    private double cadence;
     private double chainRing;
-
-
     private double skidPatch;
     private double cog;
     private double ratio;
     private double ambidextrous;
+    private double speed;
+
+
+    private double speed50;
+    private double speed60;
+    private double speed70;
+    private double speed80;
+    private double speed90;
+    private double speed100;
+    private double speed110;
+    private double speed120;
+    private double speed130;
+    private double speed140;
+    private double speed150;
+
+
+    public double getSpeed50() {
+        return speed50;
+    }
+
+    public void setSpeed50(double speed50) {
+        this.speed50 = speed50;
+    }
+
+    public double getSpeed60() {
+        return speed60;
+    }
+
+    public void setSpeed60(double speed60) {
+        this.speed60 = speed60;
+    }
+
+    public double getSpeed70() {
+        return speed70;
+    }
+
+    public void setSpeed70(double speed70) {
+        this.speed70 = speed70;
+    }
+
+    public double getSpeed80() {
+        return speed80;
+    }
+
+    public void setSpeed80(double speed80) {
+        this.speed80 = speed80;
+    }
+
+    public double getSpeed90() {
+        return speed90;
+    }
+
+    public void setSpeed90(double speed90) {
+        this.speed90 = speed90;
+    }
+
+    public double getSpeed100() {
+        return speed100;
+    }
+
+    public void setSpeed100(double speed100) {
+        this.speed100 = speed100;
+    }
+
+    public double getSpeed110() {
+        return speed110;
+    }
+
+    public void setSpeed110(double speed110) {
+        this.speed110 = speed110;
+    }
+
+    public double getSpeed120() {
+        return speed120;
+    }
+
+    public void setSpeed120(double speed120) {
+        this.speed120 = speed120;
+    }
+
+    public double getSpeed130() {
+        return speed130;
+    }
+
+    public void setSpeed130(double speed130) {
+        this.speed130 = speed130;
+    }
+
+    public double getSpeed150() {
+        return speed150;
+    }
+
+    public void setSpeed150(double speed150) {
+        this.speed150 = speed150;
+    }
+
+    public double getSpeed140() {
+        return speed140;
+    }
+
+    public void setSpeed140(double speed140) {
+        this.speed140 = speed140;
+    }
+
+
+    public double getCadence() {
+        return cadence;
+    }
+
+    public void setCadence(double cadence) {
+        this.cadence = cadence;
+    }
+
+    public double getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 
     public double getCog() {
         return cog;
@@ -51,11 +172,13 @@ package com.example.sebastian.bicycle_calculator;
         this.ambidextrous = ambidextrous;
     }
 
-    public Cadence(Double chainRing, Double cog) {
+    public Cadence(Double chainRing, Double cog, Double cadence) {
         this.chainRing = chainRing;
         this.cog = cog;
+        this.cadence = cadence;
         skidPatches(chainRing, cog);
         calculateRatio(chainRing, cog);
+        calculateSpeed();
     }
 
     public void calculateRatio(double chainRing, double cog) {
@@ -74,6 +197,34 @@ package com.example.sebastian.bicycle_calculator;
             setSkidPatch(cog / nwd);
             setAmbidextrous(cog / nwd * 2);
         }
+    }
+
+    public void calculateSpeed() {
+        speed = (cadence * ratio * 2.13 * 60) / 1000;
+        double speed50 = (50*ratio* 2.13* 60) / 1000;
+        double speed60 = (60*ratio* 2.13* 60) / 1000;
+        double speed70 = (70*ratio* 2.13* 60) / 1000;
+        double speed80 = (80*ratio* 2.13* 60) / 1000;
+        double speed90 = (90*ratio* 2.13* 60) / 1000;
+        double speed100 = (100*ratio* 2.13* 60) / 1000;
+        double speed110 = (110*ratio* 2.13* 60) / 1000;
+        double speed120 = (120*ratio* 2.13* 60) / 1000;
+        double speed130 = (130*ratio* 2.13* 60) / 1000;
+        double speed140 = (140*ratio* 2.13* 60) / 1000;
+        double speed150 = (150*ratio* 2.13* 60) / 1000;
+        setSpeed50(speed50);
+        setSpeed60(speed60);
+        setSpeed70(speed70);
+        setSpeed80(speed80);
+        setSpeed90(speed90);
+        setSpeed100(speed100);
+        setSpeed110(speed110);
+        setSpeed120(speed120);
+        setSpeed130(speed130);
+        setSpeed140(speed140);
+        setSpeed150(speed150);
+
+
     }
 
     //function to find the greatest common divisor
