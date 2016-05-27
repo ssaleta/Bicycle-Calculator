@@ -20,6 +20,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="add_bicycle">Add bicycle</string>
+    <string name="create_bicycle">Create bicycle</string>
+    <string name="title_activity_bicycle_creator">BicycleCreator</string>
+    <string name="title_activity_garage">Garage</string>
+    <array name="nav_list">
+        <item>Fixed Gear Calculator</item>
+    </array>
 </resources>
 
 

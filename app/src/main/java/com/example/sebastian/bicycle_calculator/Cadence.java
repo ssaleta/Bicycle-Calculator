@@ -172,6 +172,14 @@ public class Cadence {
         this.ambidextrous = ambidextrous;
     }
 
+    public Cadence(Double chainRing, Double cog) {
+        this.chainRing = chainRing;
+        this.cog = cog;
+        skidPatches(chainRing, cog);
+        calculateRatio(chainRing, cog);
+        calculateSpeedTable();
+    }
+
     public Cadence(Double chainRing, Double cog, Double cadence) {
         this.chainRing = chainRing;
         this.cog = cog;
@@ -179,6 +187,7 @@ public class Cadence {
         skidPatches(chainRing, cog);
         calculateRatio(chainRing, cog);
         calculateSpeed();
+        calculateSpeedTable();
     }
 
     public void calculateRatio(double chainRing, double cog) {
@@ -201,6 +210,10 @@ public class Cadence {
 
     public void calculateSpeed() {
         speed = (cadence * ratio * 2.13 * 60) / 1000;
+
+    }
+
+    public void calculateSpeedTable(){
         double speed50 = (50*ratio* 2.13* 60) / 1000;
         double speed60 = (60*ratio* 2.13* 60) / 1000;
         double speed70 = (70*ratio* 2.13* 60) / 1000;
@@ -223,7 +236,6 @@ public class Cadence {
         setSpeed130(speed130);
         setSpeed140(speed140);
         setSpeed150(speed150);
-
 
     }
 

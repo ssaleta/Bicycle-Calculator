@@ -1,6 +1,9 @@
 package com.example.sebastian.bicycle_calculator;
 
 import android.app.Dialog;
+import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -8,12 +11,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
+import java.util.logging.Handler;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -72,24 +79,57 @@ public class FixedCalculator extends AppCompatActivity {
     TextView speed150;
 
 
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
+    @Nullable @Bind (R.id.drawer_layout) DrawerLayout mDrawerLayout;
+
+
+    private ArrayAdapter<String> mAdapter;
+    private Toolbar mToolbar;
+    String[] navigationList;
+    @Bind(R.id.navList) ListView mDrawerList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fixed_calculator);
-
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mDrawerList = (ListView) findViewById(R.id.left_drawer);
         ButterKnife.bind(this);
+        setNavigationDrawer();
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkSkidPatchAndRatio();
             }
         });
+    }
+
+    public void setNavigationDrawer(){
+        mDrawerList = (ListView) findViewById(R.id.navList);
+        addDawerItems();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(FixedCalculator.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void addDawerItems(){
+        navigationList = getResources().getStringArray(R.array.nav_list);
+        String[] osArray = {"Fixed Calculator"};
+        mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, navigationList);
+        mDrawerList.setAdapter(mAdapter);
+    }
+
+    protected Toolbar getTooblar(){
+        if(mToolbar == null){
+            mToolbar = (Toolbar) findViewById(R.id.toolbar);
+            if(mToolbar != null){
+                setSupportActionBar(mToolbar);
+            }
+        }
+        return mToolbar;
     }
 
     public void checkSkidPatchAndRatio() {

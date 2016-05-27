@@ -18,7 +18,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FixedCalculator"></activity>
+        <activity android:name=".FixedCalculator" />
+        <activity
+            android:name=".BicycleCreator"
+            android:label="@string/title_activity_bicycle_creator"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Garage"
+            android:label="@string/title_activity_garage"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

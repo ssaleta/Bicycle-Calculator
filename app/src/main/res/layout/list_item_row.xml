@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="60dp">
+    <TextView
+        android:id="@+id/list_bicycle_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="RP Pawlak"/>
+    <TextView
+        android:id="@+id/list_bicycle_ratio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:text="Ratio : "
+        android:layout_toRightOf="@+id/list_bicycle_name"/>
+    <TextView
+        android:id="@+id/set_list_bicycle_ratio"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:text="3,25"
+        android:layout_toRightOf="@id/list_bicycle_ratio"/>
+    <TextView
+        android:id="@+id/list_bicycle_chainring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:text="Chainring : "
+        android:layout_toRightOf="@+id/set_list_bicycle_ratio"/>
+    <TextView
+        android:id="@+id/set_list_bicycle_chainring"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:text="52"
+        android:layout_toRightOf="@id/list_bicycle_chainring"
+        />
+    <TextView
+        android:id="@+id/list_bicycle_skidPatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/list_bicycle_ratio"
+        android:layout_alignStart="@+id/list_bicycle_ratio"
+        android:text="SkidPatch : "/>
+    <TextView
+        android:id="@+id/set_list_bicycle_skidPatch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/list_bicycle_skidPatch"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/list_bicycle_ratio"
+        android:text="7"/>
+    <TextView
+        android:id="@+id/list_bicycle_cog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/set_list_bicycle_skidPatch"
+        android:layout_below="@+id/list_bicycle_chainring"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="15dp"
+        android:text="Cog : "
+        />
+    <TextView
+        android:id="@+id/set_list_bicycle_cog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/list_bicycle_cog"
+        android:layout_below="@+id/list_bicycle_chainring"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:text="14"/>
+
+
+</RelativeLayout>
