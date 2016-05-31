@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.example.sebastian.bicycle_calculator.Bicycle;
+import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
 
 import java.text.DecimalFormat;
@@ -26,15 +27,16 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
     private ArrayList<Bicycle> bicycleList;
     private Context context;
 
-    public BicycleAdapter(ArrayList<Bicycle> bicycleList){
+    public BicycleAdapter(ArrayList<Bicycle> bicycleList, Context context) {
         this.bicycleList = bicycleList;
+        this.context = context;
     }
 
     @Override
     public BicycleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-        View bicycleListView = inflater.inflate(R.layout.list_item_row, parent, false);
-        return new ViewHolder(bicycleListView);
+        View bicycleListView = inflater.inflate(R.layout.list_item_row, null);
+        return new ViewHolder(bicycleListView, viewType, context);
     }
 
     @Override
@@ -73,11 +75,18 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
         TextView setBicycleRatio;
         @Bind(R.id.set_list_bicycle_skidPatch)
         TextView setBicycleSkidPatch;
+        Context context;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, int itemType, Context context) {
             super(itemView);
-            ButterKnife.bind(this,itemView);
+            this.context = context;
 
+            ButterKnife.bind(this, itemView);
         }
+
+
     }
+
 }
+
+

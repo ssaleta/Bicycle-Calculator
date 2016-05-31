@@ -1,13 +1,17 @@
-package com.example.sebastian.bicycle_calculator;
+package com.example.sebastian.bicycle_calculator.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.example.sebastian.bicycle_calculator.Model.Bicycle;
+import com.example.sebastian.bicycle_calculator.Model.Cadence;
+import com.example.sebastian.bicycle_calculator.R;
 
 import java.util.ArrayList;
 
@@ -27,6 +31,7 @@ public class BicycleCreator extends AppCompatActivity {
     private String name;
     private Double cog;
     private Double chainring;
+
     private ArrayList<Bicycle> bicycleList;
     private Double ratio;
     private Double skidPatch;
@@ -44,20 +49,25 @@ public class BicycleCreator extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         bicycleList = new ArrayList<Bicycle>();
-        getBicycleValues();
+
         ButterKnife.bind(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                getBicycleValues();
                 Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch);
                 bicycleList.add(bicycle);
+                Intent intent = new Intent(BicycleCreator.this, Garage.class);
+                intent.putExtra("array", bicycleList);
+                startActivity(intent);
             }
         });
 
     }
 
     public void getBicycleValues() {
+
         name = setCreatorName.getText().toString();
         chainring = Double.parseDouble(setCreatorChainring.getText().toString());
         cog = Double.parseDouble(setCreatorCog.getText().toString());

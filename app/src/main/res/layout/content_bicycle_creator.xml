@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,30 +10,56 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="com.example.sebastian.bicycle_calculator.BicycleCreator"
+    tools:context=".Activity.BicycleCreator"
     tools:showIn="@layout/activity_bicycle_creator"
     android:orientation="vertical">
+
     <EditText
         android:id="@+id/creator_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Set name"/>
+        android:hint="Set name"
+        android:layout_below="@+id/servicePhoto"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:inputType="text"
+        android:imeOptions="actionDone"/>
     <EditText
         android:id="@+id/creator_chainring"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Set chainring"/>
+        android:hint="Set chainring"
+        android:layout_below="@+id/creator_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="16dp"
+        android:inputType="number"
+        android:imeOptions="actionDone"/>
     <EditText
         android:id="@+id/creator_cog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Set cog"/>
+        android:hint="Set cog"
+        android:layout_below="@+id/creator_chainring"
+        android:layout_marginTop="16dp"
+        android:inputType="number"
+        android:imeOptions="actionDone"/>
     <Button
         android:id="@+id/createBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="create"
         android:onClick="createBicycle"
-        />
+        android:layout_marginEnd="24dp"
+        android:layout_alignBaseline="@+id/creator_cog"
+        android:layout_alignBottom="@+id/creator_cog"
+        android:layout_alignEnd="@+id/servicePhoto" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/jawor_serwis"
+        android:id="@+id/servicePhoto"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitXY"/>
+</RelativeLayout>
 
-</LinearLayout>

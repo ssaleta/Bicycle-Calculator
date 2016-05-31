@@ -1,11 +1,11 @@
-package com.example.sebastian.bicycle_calculator;
+package com.example.sebastian.bicycle_calculator.Model;
 
 /**
  * Created by Sebastian on 2016-05-11.
  */
 public class Cadence {
 
-    private double cadence;
+    private double cadence = 0;
     private double chainRing;
     private double skidPatch;
     private double cog;
@@ -25,6 +25,8 @@ public class Cadence {
     private double speed130;
     private double speed140;
     private double speed150;
+    private double speed160;
+    private double speed170;
 
 
     public double getSpeed50() {
@@ -98,6 +100,13 @@ public class Cadence {
     public void setSpeed130(double speed130) {
         this.speed130 = speed130;
     }
+    public double getSpeed140() {
+        return speed140;
+    }
+
+    public void setSpeed140(double speed140) {
+        this.speed140 = speed140;
+    }
 
     public double getSpeed150() {
         return speed150;
@@ -107,12 +116,20 @@ public class Cadence {
         this.speed150 = speed150;
     }
 
-    public double getSpeed140() {
-        return speed140;
+    public double getSpeed160() {
+        return speed160;
     }
 
-    public void setSpeed140(double speed140) {
-        this.speed140 = speed140;
+    public void setSpeed160(double speed160) {
+        this.speed160 = speed160;
+    }
+
+    public double getSpeed170() {
+        return speed170;
+    }
+
+    public void setSpeed170(double speed170) {
+        this.speed170 = speed170;
     }
 
 
@@ -189,6 +206,9 @@ public class Cadence {
         calculateSpeed();
         calculateSpeedTable();
     }
+    public Cadence(){
+
+    }
 
     public void calculateRatio(double chainRing, double cog) {
         ratio = chainRing / cog;
@@ -225,6 +245,8 @@ public class Cadence {
         double speed130 = (130*ratio* 2.13* 60) / 1000;
         double speed140 = (140*ratio* 2.13* 60) / 1000;
         double speed150 = (150*ratio* 2.13* 60) / 1000;
+        double speed160 = (160*ratio* 2.13* 60) / 1000;
+        double speed170 = (170*ratio* 2.13* 60) / 1000;
         setSpeed50(speed50);
         setSpeed60(speed60);
         setSpeed70(speed70);
@@ -236,6 +258,8 @@ public class Cadence {
         setSpeed130(speed130);
         setSpeed140(speed140);
         setSpeed150(speed150);
+        setSpeed160(speed160);
+        setSpeed170(speed170);
 
     }
 

@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.sebastian.bicycle_calculator.MainActivity">
+    tools:context=".Activity.MainActivity">
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
@@ -10,5 +10,9 @@
     <item
         android:id="@+id/information"
         android:title="@string/action_informations"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/bicycle_creator"
+        android:title="bicycle Creator"
         app:showAsAction="never"/>
 </menu>
