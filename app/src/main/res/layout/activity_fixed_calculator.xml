@@ -18,41 +18,38 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".Activity.FixedCalculator">
 
-   
-    <TextView
-        android:id="@+id/chainring"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/chainring"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_chainring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <EditText
         android:id="@+id/set_chainring"
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/chainring"
         android:hint="@string/set_chainring"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal" />
+</android.support.design.widget.TextInputLayout>
 
 
-    <TextView
-        android:id="@+id/cog"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_cog"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/set_chainring"
-        android:text="@string/rear_cog"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@id/input_layout_chainring">
 
     <EditText
         android:id="@+id/set_cog"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cog"
         android:hint="@string/set_cog"
         android:imeOptions="actionDone"
         android:inputType="number" />
+    </android.support.design.widget.TextInputLayout>
 
 
     <Button
@@ -60,34 +57,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/image_cog"
+        style="@style/Widget.AppCompat.Button.Colored"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:onClick="calculate"
         android:text="@string/calculate_btn" />
 
-    <TextView
-        android:id="@+id/cadence"
-        android:layout_width="wrap_content"
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_cadence"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/set_cog"
-        android:layout_marginTop="20dp"
-        android:text="@string/cadence"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_below="@+id/input_layout_cog">
 
     <EditText
         android:id="@+id/show_set_cadence"
-        android:layout_width="wrap_content"
+        android:layout_width="110dp"
         android:layout_height="wrap_content"
-        android:layout_below="@id/cadence"
         android:hint="@string/set_cadence"
         android:imeOptions="actionDone"
         android:inputType="numberDecimal" />
+    </android.support.design.widget.TextInputLayout>
 
     <TextView
         android:id="@+id/gear_ratio"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/show_set_cadence"
+        android:layout_below="@+id/input_layout_cadence"
         android:layout_marginTop="20dp"
         android:text="@string/gear_ratio"
         android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -105,7 +100,7 @@
         android:id="@+id/skid_patch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/show_set_cadence"
+        android:layout_below="@+id/input_layout_cadence"
         android:layout_marginLeft="40dp"
         android:layout_marginTop="20dp"
         android:layout_toRightOf="@+id/gear_ratio"
@@ -177,10 +172,10 @@
         android:id="@+id/image_cog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/set_chainring"
         android:layout_marginLeft="50dp"
-        android:layout_toRightOf="@id/cog"
-        android:src="@drawable/cog" />
+        android:src="@drawable/cog"
+        android:layout_alignTop="@+id/input_layout_chainring"
+        android:layout_alignStart="@+id/ambidextrous" />
 
 
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"

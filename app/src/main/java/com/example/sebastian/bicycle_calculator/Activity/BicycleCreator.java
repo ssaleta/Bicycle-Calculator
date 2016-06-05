@@ -1,25 +1,38 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.Model.Cadence;
+import com.example.sebastian.bicycle_calculator.Model.Contact;
 import com.example.sebastian.bicycle_calculator.R;
+import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
+import com.example.sebastian.bicycle_calculator.Support.DatabaseHandler2;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
 public class BicycleCreator extends AppCompatActivity {
 
+    @Bind(R.id.input_layout_name)
+    TextInputLayout inputLayoutName;
+    @Bind(R.id.input_layout_creator_chainring)
+    TextInputLayout inputLayoutCreatorChainring;
+    @Bind(R.id.input_layout_creator_cog)
+    TextInputLayout inputLayoutCreatorCog;
     @Bind(R.id.creator_name)
     EditText setCreatorName;
     @Bind(R.id.creator_chainring)
@@ -35,6 +48,7 @@ public class BicycleCreator extends AppCompatActivity {
     private ArrayList<Bicycle> bicycleList;
     private Double ratio;
     private Double skidPatch;
+
 
 
     public ArrayList<Bicycle> getBicycleList() {
@@ -56,11 +70,16 @@ public class BicycleCreator extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 getBicycleValues();
+
+
                 Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch);
                 bicycleList.add(bicycle);
+                dataBaseCreate();
+
                 Intent intent = new Intent(BicycleCreator.this, Garage.class);
                 intent.putExtra("array", bicycleList);
                 startActivity(intent);
+                finish();
             }
         });
 
@@ -74,6 +93,40 @@ public class BicycleCreator extends AppCompatActivity {
         Cadence cadence = new Cadence(chainring, cog);
         ratio = cadence.getRatio();
         skidPatch = cadence.getSkidPatch();
+
+    }
+    public void dataBaseCreate(){
+        DataBaseHandler db = new DataBaseHandler(this);
+        Log.d("insert: ", "insterting ..");
+        Log.d("ratio insert", " " +ratio);
+        db.addBicycle(new Bicycle(name, chainring, cog, ratio, skidPatch));
+
+        Log.d("Reading:", "Reading all bicycles..");
+       List<Bicycle> bicycles = db.getAllBicycles();
+        for (Bicycle bt : bicycles){
+            String log = "Id: " + bt.getItemId()+ " ,Name: "+ bt.getName()+ " ,Chainring: "+ bt.getChainring() + " ,Cog: " + bt.getCog()+ " ,SkidPatch:" +bt.getSkidPatch()+ " ,Ratio" +bt.getRatio();
+            Log.d("Name: ", log);
+        }
+
+    }
+    public void dataCreate(){
+        DatabaseHandler2 db = new DatabaseHandler2(this);
+        Log.d("Insert: ", "Inserting ..");
+        db.addContact(new Contact("Ravi", "9100000000"));
+        db.addContact(new Contact("Srinivas", "9199999999"));
+        db.addContact(new Contact("Tommy", "9522222222"));
+        db.addContact(new Contact("Karthik", "9533333333"));
+
+        // Reading all contacts
+        Log.d("Reading: ", "Reading all contacts..");
+        List<Contact> contacts = db.getAllContacts();
+
+        for (Contact cn : contacts) {
+            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber();
+            // Writing Contacts to log
+            Log.d("Name: ", log);
+        }
+
     }
 
 }

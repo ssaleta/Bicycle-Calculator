@@ -8,12 +8,26 @@ import java.util.ArrayList;
  */
 public class Bicycle implements Serializable {
 
-
+    private int itemId ;
     private String name;
     private double chainring;
     private double cog;
     private double skidPatch;
     private double ratio;
+    private static int counter = 0;
+
+
+
+
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
 
     public double getSkidPatch() {
         return skidPatch;
@@ -60,5 +74,31 @@ public class Bicycle implements Serializable {
         this.cog = cog;
         this.ratio = ratio;
         this.skidPatch = skidPatch;
+
     }
+    public Bicycle (){}
+    public Bicycle(int itemId, String name, Double chainring, double cog, double skidPatch, double ratio){
+        this.name = name;
+        this.chainring = chainring;
+        this.cog = cog;
+        this.ratio = ratio;
+        this.skidPatch = skidPatch;
+        this.itemId = itemId;
+    }
+    public Bicycle(int itemId, String name, Double chainring, double cog){
+        this.name = name;
+        this.chainring = chainring;
+        this.cog = cog;
+        this.ratio = ratio;
+        this.skidPatch = skidPatch;
+        this.itemId = itemId;
+    }
+    public Bicycle(String name,Double chainring, double cog){
+        this.name = name;
+        this.chainring = chainring;
+        this.cog = cog;
+
+    }
+
+
 }

@@ -17,7 +17,8 @@
     <string name="skid_pathes">Skid Pathes</string>
     <string name="skid_pathes_information">it is skid (stop wheel) on the same section of the tire</string>
     <string name="title_activity_fixed_gear">FixedGearActivity</string>
-
+    <string name="set_name">Set name</string>
+    <string name="create">Create</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="add_bicycle">Add bicycle</string>
@@ -26,6 +27,9 @@
     <string name="title_activity_garage">Garage</string>
     <string name="drawer_open">Open drawer</string>
     <string name="drawer_close">Close drawer</string>
+    <string name="error_chainring">Fill chainring</string>
+    <string name="error_cog">Fill cog</string>
+    <string name="error_cadence">Fill cadence</string>
     <array name="nav_drawer_labels">
         <item>Fixed Gear Calculator2</item>
     </array>

@@ -62,8 +62,10 @@ public class Garage extends AppCompatActivity {
                 extras.putInt("position", position);
                 intent.putExtras(extras);
                 startActivity(intent);
+
             }
 
         });
     }
+
 }

@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, FixedCalculator.class));
+                finish();
             }
         });
         roadPhoto.setOnClickListener(new View.OnClickListener() {

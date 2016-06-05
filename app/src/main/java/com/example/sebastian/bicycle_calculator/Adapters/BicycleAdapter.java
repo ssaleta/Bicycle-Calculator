@@ -51,6 +51,7 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
         holder.setBicycleSkidPatch.setText(df.format(bicycleList.get(position).getSkidPatch()));
     }
 
+
     @Override
     public int getItemCount() {
         return bicycleList.size();
