@@ -33,13 +33,13 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 
 
-public static synchronized DataBaseHandler getsInstance(Context context){
+public static synchronized DataBaseHandler getInstance(Context context){
     if(sInstance == null){
         sInstance = new DataBaseHandler(context.getApplicationContext());
     }
     return sInstance;
 }
-    public DataBaseHandler(Context context) {
+    private DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

@@ -97,7 +97,7 @@ public class BicycleCreator extends AppCompatActivity {
 
     }
     public void dataBaseCreate(){
-        DataBaseHandler db = new DataBaseHandler(this);
+        DataBaseHandler db = DataBaseHandler.getInstance(this);
 
         db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio));
         /*db.addBicycle(new Bicycle("strzala", 5.0, 6.0,7.0,8.0));*/

@@ -8,9 +8,11 @@ import android.widget.TextView;
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.Model.Cadence;
 import com.example.sebastian.bicycle_calculator.R;
+import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -62,6 +64,7 @@ public class BicycleParameters extends AppCompatActivity {
     private Double ratio;
     private ArrayList<Bicycle> bicycles;
     private int position;
+    private List<Bicycle> bicycleList;
 
 
     @Override
@@ -71,6 +74,8 @@ public class BicycleParameters extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         Bundle getBundle = intent.getExtras();
+        DataBaseHandler db = DataBaseHandler.getInstance(this);
+        bicycleList = db.getAllBicycles();
 
         if (getBundle != null) {
             bicycles = (ArrayList<Bicycle>) intent.getSerializableExtra("array");
@@ -81,12 +86,41 @@ public class BicycleParameters extends AppCompatActivity {
 
     }
 
+    /* public void setParameters() {
+         DecimalFormat df = new DecimalFormat("##.##");
+         DecimalFormat sp = new DecimalFormat("##.#");
+         name = bicycles.get(position).getName();
+         chainRing = bicycles.get(position).getChainring();
+         cog = bicycles.get(position).getCog();
+         Cadence cadence = new Cadence(chainRing, cog);
+         skidPatch = cadence.getSkidPatch();
+         skidPatchAmb = cadence.getAmbidextrous();
+         ratio = cadence.getRatio();
+         nameParam.setText(name);
+         setChainringParam.setText(df.format(chainRing));
+         setCogParam.setText(df.format(cog));
+         setSkidPatchParam.setText(df.format(skidPatch));
+         setSkidPatchAmbidextrous.setText(df.format(skidPatchAmb));
+         setRatioParam.setText(df.format(ratio));
+         speed60.setText(sp.format(cadence.getSpeed60()));
+         speed70.setText(sp.format(cadence.getSpeed70()));
+         speed80.setText(sp.format(cadence.getSpeed80()));
+         speed90.setText(sp.format(cadence.getSpeed90()));
+         speed100.setText(sp.format(cadence.getSpeed100()));
+         speed110.setText(sp.format(cadence.getSpeed110()));
+         speed120.setText(sp.format(cadence.getSpeed120()));
+         speed130.setText(sp.format(cadence.getSpeed130()));
+         speed140.setText(sp.format(cadence.getSpeed140()));
+         speed150.setText(sp.format(cadence.getSpeed150()));
+         speed160.setText(sp.format(cadence.getSpeed160()));
+         speed170.setText(sp.format(cadence.getSpeed170()));
+     }*/
     public void setParameters() {
         DecimalFormat df = new DecimalFormat("##.##");
         DecimalFormat sp = new DecimalFormat("##.#");
-        name = bicycles.get(position).getName();
-        chainRing = bicycles.get(position).getChainring();
-        cog = bicycles.get(position).getCog();
+        name = bicycleList.get(position).getName();
+        chainRing = bicycleList.get(position).getChainring();
+        cog = bicycleList.get(position).getCog();
         Cadence cadence = new Cadence(chainRing, cog);
         skidPatch = cadence.getSkidPatch();
         skidPatchAmb = cadence.getAmbidextrous();

@@ -2,6 +2,7 @@ package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -12,17 +13,20 @@ import android.view.View;
 import com.example.sebastian.bicycle_calculator.Adapters.BicycleAdapter;
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
+import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 import com.example.sebastian.bicycle_calculator.Support.ItemClickSupport;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Garage extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private BicycleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
+    private DataBaseHandler db;
     private ArrayList<Bicycle> bicycles;
+
 
 
     @Override
@@ -33,16 +37,19 @@ public class Garage extends AppCompatActivity {
         setSupportActionBar(toolbar);
         Intent intent = getIntent();
         Bundle getBundle = intent.getExtras();
-        if (getBundle != null) {
+        db = DataBaseHandler.getInstance(this);
+        /*if (getBundle != null) {
             bicycles = (ArrayList<Bicycle>) intent.getSerializableExtra("array");
-        }
+        }*/
+        List<Bicycle> bicycleList = db.getAllBicycles();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.bicycles_list);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new BicycleAdapter(bicycles, this);
+       /* mAdapter = new BicycleAdapter(bicycles, this);*/
+        mAdapter = new BicycleAdapter(bicycleList,this);
         mRecyclerView.setAdapter(mAdapter);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -57,7 +64,7 @@ public class Garage extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent intent = new Intent(getApplicationContext(), BicycleParameters.class);
-                Bundle extras = new Bundle();
+               Bundle extras = new Bundle();
                 extras.putSerializable("array", bicycles);
                 extras.putInt("position", position);
                 intent.putExtras(extras);
