@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 
@@ -15,6 +16,8 @@ import java.util.List;
  * Created by Sebastian on 2016-06-05.
  */
 public class DataBaseHandler extends SQLiteOpenHelper {
+
+    public static DataBaseHandler sInstance;
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "bicycleManager";
@@ -30,7 +33,12 @@ public class DataBaseHandler extends SQLiteOpenHelper {
 
 
 
-
+public static synchronized DataBaseHandler getsInstance(Context context){
+    if(sInstance == null){
+        sInstance = new DataBaseHandler(context.getApplicationContext());
+    }
+    return sInstance;
+}
     public DataBaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -64,8 +72,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         values.put(KEY_NAME, bicycle.getName());
         values.put(KEY_CHAINRING, bicycle.getChainring());
         values.put(KEY_COG, bicycle.getCog());
-        values.put(KEY_CHAINRING, bicycle.getChainring());
+        values.put(KEY_SKIDPATCH, bicycle.getSkidPatch());
         values.put(KEY_RATIO, bicycle.getRatio());
+
 
 
         //insterting row
@@ -75,7 +84,8 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     }
     public Bicycle getBicycle(int id){
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_CHAINRING, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+        Cursor cursor;
+        cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
         if(cursor != null){
             cursor.moveToFirst();
         }
@@ -91,12 +101,17 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         if(cursor.moveToFirst()){
             do{
                 Bicycle bicycle = new Bicycle();
-                bicycle.setItemId(Integer.parseInt(cursor.getString(0)));
                 bicycle.setName(cursor.getString(1));
+                Log.d("getAllbicycles", " name" + cursor.getString(1));
+                Log.d("getAllbicycles", " chainring" + cursor.getString(2));
+                Log.d("getAllbicycles", " cog" + cursor.getString(3));
+                Log.d("getAllbicycles", " skidpatch" + cursor.getString(4));
+                Log.d("getAllbicycles", " ratio" + cursor.getString(5));
                 bicycle.setChainring(Double.parseDouble(cursor.getString(2)));
+
                 bicycle.setCog(Double.parseDouble(cursor.getString(3)));
-                bicycle.setSkidPatch(Double.parseDouble(cursor.getString(3)));
-                bicycle.setRatio(Double.parseDouble(cursor.getString(3)));
+                bicycle.setSkidPatch(Double.parseDouble(cursor.getString(4)));
+                bicycle.setRatio(Double.parseDouble(cursor.getString(5)));
                 bicycleList.add(bicycle);
 
             }while(cursor.moveToNext());

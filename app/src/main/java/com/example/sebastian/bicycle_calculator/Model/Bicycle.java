@@ -78,27 +78,15 @@ public class Bicycle implements Serializable {
     }
     public Bicycle (){}
     public Bicycle(int itemId, String name, Double chainring, double cog, double skidPatch, double ratio){
-        this.name = name;
-        this.chainring = chainring;
-        this.cog = cog;
-        this.ratio = ratio;
-        this.skidPatch = skidPatch;
         this.itemId = itemId;
-    }
-    public Bicycle(int itemId, String name, Double chainring, double cog){
         this.name = name;
         this.chainring = chainring;
         this.cog = cog;
-        this.ratio = ratio;
         this.skidPatch = skidPatch;
-        this.itemId = itemId;
+        this.ratio = ratio;
     }
-    public Bicycle(String name,Double chainring, double cog){
-        this.name = name;
-        this.chainring = chainring;
-        this.cog = cog;
 
-    }
+
 
 
 }

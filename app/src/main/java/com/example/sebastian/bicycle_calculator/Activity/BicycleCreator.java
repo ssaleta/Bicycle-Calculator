@@ -93,19 +93,23 @@ public class BicycleCreator extends AppCompatActivity {
         Cadence cadence = new Cadence(chainring, cog);
         ratio = cadence.getRatio();
         skidPatch = cadence.getSkidPatch();
+        Log.d("skidPatchGetBicycleValue", "ratio" + cadence.getRatio());
 
     }
     public void dataBaseCreate(){
         DataBaseHandler db = new DataBaseHandler(this);
-        Log.d("insert: ", "insterting ..");
-        Log.d("ratio insert", " " +ratio);
-        db.addBicycle(new Bicycle(name, chainring, cog, ratio, skidPatch));
+
+        db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio));
+        /*db.addBicycle(new Bicycle("strzala", 5.0, 6.0,7.0,8.0));*/
+        Log.d("ratio insert", " " + ratio);
 
         Log.d("Reading:", "Reading all bicycles..");
        List<Bicycle> bicycles = db.getAllBicycles();
         for (Bicycle bt : bicycles){
             String log = "Id: " + bt.getItemId()+ " ,Name: "+ bt.getName()+ " ,Chainring: "+ bt.getChainring() + " ,Cog: " + bt.getCog()+ " ,SkidPatch:" +bt.getSkidPatch()+ " ,Ratio" +bt.getRatio();
             Log.d("Name: ", log);
+            Log.d("skid patch", skidPatch.toString());
+
         }
 
     }
