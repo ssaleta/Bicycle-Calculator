@@ -44,11 +44,9 @@ public class BicycleCreator extends AppCompatActivity {
     private String name;
     private Double cog;
     private Double chainring;
-
     private ArrayList<Bicycle> bicycleList;
     private Double ratio;
     private Double skidPatch;
-
 
 
     public ArrayList<Bicycle> getBicycleList() {

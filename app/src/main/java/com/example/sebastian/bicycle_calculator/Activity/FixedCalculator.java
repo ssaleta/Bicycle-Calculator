@@ -1,25 +1,20 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.sebastian.bicycle_calculator.Model.Cadence;
 import com.example.sebastian.bicycle_calculator.R;
+import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.MyTextWatcher;
 
 import java.text.DecimalFormat;
@@ -37,14 +32,14 @@ public class FixedCalculator extends AppCompatActivity {
     TextView showGearRatio;
     @Bind(R.id.show_skid_patch)
     TextView showSkidPatch;
-    @Bind(R.id.show_skid_patch_number_for_ambidextrous)
-    TextView showSkidAmbidextrous;
+    @Bind(R.id.show_skid_patch_value_for_ambidextrous)
+    TextView showSkidPatchForAmbidextrous;
     @Bind(R.id.calculate_btn)
     Button calculateBtn;
-    @Bind(R.id.show_set_cadence)
-    EditText showCadence;
-    @Bind(R.id.show_speed)
-    TextView showSpeed;
+    @Bind(R.id.set_cadence)
+    EditText setCadence;
+    @Bind(R.id.show_cadence_speed)
+    TextView showCadenceSpeed;
     @Bind(R.id.speed_50)
     TextView speed50;
     @Bind(R.id.speed_60)
@@ -61,31 +56,31 @@ public class FixedCalculator extends AppCompatActivity {
     TextInputLayout inputLayoutChainring;
     @Bind(R.id.input_layout_cog)
     TextInputLayout inputLayoutCog;
-    @Bind(R.id.input_layout_cadence)
-    TextInputLayout inputLayoutCadence;
 
-   private double chainring;
+    private double chainring;
     private double cog;
-    private double yourCadence;
-    private Cadence cadence;
+    private double cadence;
+    private CalculatorSupport calculatorSupport;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fixed_calculator);
         ButterKnife.bind(this);
-
-        setCog.addTextChangedListener(new MyTextWatcher(setCog));
-        setChainring.addTextChangedListener(new MyTextWatcher(setChainring));
-        showCadence.addTextChangedListener(new MyTextWatcher(showCadence));
+        setCalculatorBasicParameters();
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 submitForm();
-                       /* Calculate();*/
+                calculate();
             }
         });
+    }
 
+    private void setCalculatorBasicParameters(){
+        setCog.addTextChangedListener(new MyTextWatcher(setCog));
+        setChainring.addTextChangedListener(new MyTextWatcher(setChainring));
+        setCadence.addTextChangedListener(new MyTextWatcher(setCadence));
     }
 
     private void submitForm() {
@@ -97,44 +92,39 @@ public class FixedCalculator extends AppCompatActivity {
             inputLayoutCog.setErrorEnabled(true);
             return;
         }
-        if (!validateCadence()) {
-            inputLayoutCadence.setErrorEnabled(true);
-            return;
-        }
-        Calculate();
     }
 
 
-    public void Calculate() {
+    private void calculate() {
+        DecimalFormat twoDecimalPlaces = new DecimalFormat("##.##");
+        DecimalFormat oneDecimalPlace = new DecimalFormat("##.#");
+
+        convertStringBikeParametersToDouble();
+        if (setCadence.getText().toString().matches("")) {
+            calculatorSupport = new CalculatorSupport(chainring,cog);
+        } else {
+            calculatorSupport = new CalculatorSupport(chainring, cog, cadence);
+        }
+        showGearRatio.setText(twoDecimalPlaces.format(calculatorSupport.getRatio()));
+        showSkidPatch.setText(twoDecimalPlaces.format(calculatorSupport.getSkidPatch()));
+        showSkidPatchForAmbidextrous.setText(Integer.toString((int) calculatorSupport.getAmbidextrous()));
+        showCadenceSpeed.setText(twoDecimalPlaces.format(calculatorSupport.getSpeed()));
+        speed50.setText(oneDecimalPlace.format(calculatorSupport.getSpeed50()));
+        speed60.setText(oneDecimalPlace.format(calculatorSupport.getSpeed60()));
+        speed70.setText(oneDecimalPlace.format(calculatorSupport.getSpeed70()));
+        speed80.setText(oneDecimalPlace.format(calculatorSupport.getSpeed80()));
+        speed90.setText(oneDecimalPlace.format(calculatorSupport.getSpeed90()));
+        speed100.setText(oneDecimalPlace.format(calculatorSupport.getSpeed100()));
+
+
+    }
+
+    private void convertStringBikeParametersToDouble(){
         chainring = Double.parseDouble(setChainring.getText().toString());
         cog = Double.parseDouble(setCog.getText().toString());
-        if (showCadence.getText().toString().matches("")) {
-            cadence = new Cadence(chainring,cog);
-        } else {
-            cadence = new Cadence(Double.parseDouble(setChainring.getText().toString()), Double.parseDouble(setCog.getText().toString()), Double.parseDouble(showCadence.getText().toString()));
+        if(!setCadence.getText().toString().matches("") ) {
+            cadence = Double.parseDouble(setCadence.getText().toString());
         }
-        Double ratio = cadence.getRatio();
-        DecimalFormat df = new DecimalFormat("##.##");
-        DecimalFormat sp = new DecimalFormat("##.#");
-        String ratioString = df.format(ratio);
-        Double skidPatch = cadence.getSkidPatch();
-        String skidPatchToString = df.format(skidPatch);
-        Double ambidextrous = cadence.getAmbidextrous();
-        String ambidextrousToString = df.format(ambidextrous);
-        Double speed = cadence.getSpeed();
-        String speedToString = df.format(speed);
-        showGearRatio.setText(ratioString);
-        showSkidPatch.setText(skidPatchToString);
-        showSkidAmbidextrous.setText(ambidextrousToString);
-        showSpeed.setText(speedToString);
-        speed50.setText(sp.format(cadence.getSpeed50()));
-        speed60.setText(sp.format(cadence.getSpeed60()));
-        speed70.setText(sp.format(cadence.getSpeed70()));
-        speed80.setText(sp.format(cadence.getSpeed80()));
-        speed90.setText(sp.format(cadence.getSpeed90()));
-        speed100.setText(sp.format(cadence.getSpeed100()));
-
-
     }
 
     public void createDialogInformation() {
@@ -164,7 +154,7 @@ public class FixedCalculator extends AppCompatActivity {
             return true;
         }
         if (id == R.id.information) {
-           /* createDialogInformation();*/
+            createDialogInformation();
         }
         if (id == R.id.bicycle_creator) {
             Intent intent = new Intent(FixedCalculator.this, BicycleCreator.class);
@@ -180,80 +170,53 @@ public class FixedCalculator extends AppCompatActivity {
     }
 
     public boolean validateChainring() {
-        Log.e("fixedCalculator", "setChainring");
+
         if (setChainring.getText().toString().trim().isEmpty()) {
-            Log.e("fixedCalculator", "jestem w petli if");
             inputLayoutChainring.setError(getString(R.string.error_chainring));
             requestFocus(setChainring);
             return false;
         } else {
-            Log.e("fixedCalculator", "jestem w petli else");
             inputLayoutChainring.setErrorEnabled(false);
         }
         return true;
     }
 
     public boolean validateCog() {
-        Log.e("fixedCalculator", "setCog");
+
         if (setCog.getText().toString().trim().isEmpty()) {
-            Log.e("fixedCalculator", "setCogError");
             inputLayoutCog.setError(getString(R.string.error_cog));
             requestFocus(setCog);
             return false;
         } else {
-            Log.e("fixedCalculator", "setCogEnabled");
             inputLayoutCog.setErrorEnabled(false);
         }
         return true;
     }
 
-    public boolean validateCadence() {
-        if (showCadence.getText().toString().trim().isEmpty()) {
-            inputLayoutCadence.setError(getString(R.string.error_cadence));
-            requestFocus(showCadence);
-            return false;
-        } else {
-            inputLayoutCadence.setErrorEnabled(false);
-        }
-        return true;
-    }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        if (newConfig.orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            Log.e("fixedcalculator", "orienationLanscape");
-            /*getWindow().setSoftInputMode(
-                    WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
-            );*/
-            Toast.makeText(this, "landscape", Toast.LENGTH_SHORT).show();
-        }
-        if (newConfig.orientation == Configuration.ORIENTATION_PORTRAIT) {
 
-            Toast.makeText(this, "portrait", Toast.LENGTH_SHORT).show();
-        }
-    }
     @Override
     protected void onSaveInstanceState(Bundle outState){
         super.onSaveInstanceState(outState);
 
-        if(showCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("") ){
+        if(setCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("") ){
             return;
         }else {
-            outState.putDouble("saved_cadence", cadence.getCadence());
-            outState.putDouble("saved_chainring", cadence.getChainRing());
-            outState.putDouble("saved_Cog", cadence.getCog());
+            outState.putDouble("saved_cadence", calculatorSupport.getCadence());
+            outState.putDouble("saved_chainring", calculatorSupport.getChainRing());
+            outState.putDouble("saved_Cog", calculatorSupport.getCog());
         }
     }
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if(showCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("") ) {
+        if(setCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("") ) {
             submitForm();
         }else {
             chainring = (savedInstanceState.getDouble("saved_chainring"));
             cog = (savedInstanceState.getDouble("saved_chainring"));
-            Calculate();
+            calculate();
         }
     }
 }

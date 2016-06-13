@@ -3,6 +3,7 @@ package com.example.sebastian.bicycle_calculator.Adapters;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -95,12 +96,17 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
         TextView setBicycleSkidPatch;
         Context context;
 
+
+        public void onClick(View view) {
+            Log.d(TAG, "onClick " + "click");
+        }
         public ViewHolder(View itemView, int itemType, Context context) {
             super(itemView);
             this.context = context;
 
             ButterKnife.bind(this, itemView);
         }
+
 
 
     }

@@ -1,8 +1,12 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
+import android.provider.ContactsContract;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
@@ -65,6 +69,7 @@ public class BicycleParameters extends AppCompatActivity {
     private ArrayList<Bicycle> bicycles;
     private int position;
     private List<Bicycle> bicycleList;
+    private DataBaseHandler db;
 
 
     @Override
@@ -74,47 +79,35 @@ public class BicycleParameters extends AppCompatActivity {
         ButterKnife.bind(this);
         Intent intent = getIntent();
         Bundle getBundle = intent.getExtras();
-        DataBaseHandler db = DataBaseHandler.getInstance(this);
+        db = DataBaseHandler.getInstance(this);
         bicycleList = db.getAllBicycles();
+
+        FloatingActionButton deleteBicycle = (FloatingActionButton) findViewById(R.id.deleteBicycle);
+
 
         if (getBundle != null) {
             bicycles = (ArrayList<Bicycle>) intent.getSerializableExtra("array");
             position = getBundle.getInt("position");
         }
-        ;
+
         setParameters();
+
+        deleteBicycle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Log.e("bicycleListSize", "size" + db.getAllBicycles().size());
+                Log.e("bicycleDelete", "position" + position);
+                bicycleList.remove(position);
+          /*      startActivity(new Intent(BicycleParameters.this, Garage.class));*/
+                db.deleteBicycle(bicycleList.get(position));
+                /*Log.e("bicycleListSizeAfterDelete","size" +db.getAllBicycles().size());*/
+            }
+        });
 
     }
 
-    /* public void setParameters() {
-         DecimalFormat df = new DecimalFormat("##.##");
-         DecimalFormat sp = new DecimalFormat("##.#");
-         name = bicycles.get(position).getName();
-         chainRing = bicycles.get(position).getChainring();
-         cog = bicycles.get(position).getCog();
-         Cadence cadence = new Cadence(chainRing, cog);
-         skidPatch = cadence.getSkidPatch();
-         skidPatchAmb = cadence.getAmbidextrous();
-         ratio = cadence.getRatio();
-         nameParam.setText(name);
-         setChainringParam.setText(df.format(chainRing));
-         setCogParam.setText(df.format(cog));
-         setSkidPatchParam.setText(df.format(skidPatch));
-         setSkidPatchAmbidextrous.setText(df.format(skidPatchAmb));
-         setRatioParam.setText(df.format(ratio));
-         speed60.setText(sp.format(cadence.getSpeed60()));
-         speed70.setText(sp.format(cadence.getSpeed70()));
-         speed80.setText(sp.format(cadence.getSpeed80()));
-         speed90.setText(sp.format(cadence.getSpeed90()));
-         speed100.setText(sp.format(cadence.getSpeed100()));
-         speed110.setText(sp.format(cadence.getSpeed110()));
-         speed120.setText(sp.format(cadence.getSpeed120()));
-         speed130.setText(sp.format(cadence.getSpeed130()));
-         speed140.setText(sp.format(cadence.getSpeed140()));
-         speed150.setText(sp.format(cadence.getSpeed150()));
-         speed160.setText(sp.format(cadence.getSpeed160()));
-         speed170.setText(sp.format(cadence.getSpeed170()));
-     }*/
+
+
     public void setParameters() {
         DecimalFormat df = new DecimalFormat("##.##");
         DecimalFormat sp = new DecimalFormat("##.#");

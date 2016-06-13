@@ -1,10 +1,9 @@
-package com.example.sebastian.bicycle_calculator.Model;
+package com.example.sebastian.bicycle_calculator.Support;
 
 /**
- * Created by Sebastian on 2016-05-11.
+ * Created by Sebastian on 2016-06-12.
  */
-public class Cadence {
-
+public class CalculatorSupport {
     private double cadence = 0;
     private double chainRing;
     private double skidPatch;
@@ -26,6 +25,94 @@ public class Cadence {
     private double speed160;
     private double speed170;
 
+
+    public CalculatorSupport(Double chainRing, Double cog) {
+        this.chainRing = chainRing;
+        this.cog = cog;
+        skidPatches(chainRing, cog);
+        calculateRatio(chainRing, cog);
+        calculateSpeedTable();
+    }
+
+    public CalculatorSupport(Double chainRing, Double cog, Double cadence) {
+        this.chainRing = chainRing;
+        this.cog = cog;
+        this.cadence = cadence;
+        skidPatches(chainRing, cog);
+        calculateRatio(chainRing, cog);
+        calculateSpeed();
+        calculateSpeedTable();
+    }
+
+    public CalculatorSupport(){
+    }
+
+
+    public void calculateRatio(double chainRing, double cog) {
+        ratio = chainRing / cog;
+        setRatio(ratio);
+    }
+
+    public void skidPatches(double chainRing, double cog) {
+        double nwd = nwd(chainRing, cog);
+
+        if ((chainRing / nwd) % 2 == 0) {
+            setSkidPatch(cog / nwd);
+            setAmbidextrous(cog / nwd);
+        }
+        if (chainRing / nwd % 2 != 0) {
+            setSkidPatch(cog / nwd);
+            setAmbidextrous(cog / nwd * 2);
+        }
+    }
+
+    public void calculateSpeed() {
+        speed = (cadence * ratio * 2.13 * 60) / 1000;
+
+    }
+
+    public void calculateSpeedTable(){
+        double speed50 = (50*ratio* 2.13* 60) / 1000;
+        double speed60 = (60*ratio* 2.13* 60) / 1000;
+        double speed70 = (70*ratio* 2.13* 60) / 1000;
+        double speed80 = (80*ratio* 2.13* 60) / 1000;
+        double speed90 = (90*ratio* 2.13* 60) / 1000;
+        double speed100 = (100*ratio* 2.13* 60) / 1000;
+        double speed110 = (110*ratio* 2.13* 60) / 1000;
+        double speed120 = (120*ratio* 2.13* 60) / 1000;
+        double speed130 = (130*ratio* 2.13* 60) / 1000;
+        double speed140 = (140*ratio* 2.13* 60) / 1000;
+        double speed150 = (150*ratio* 2.13* 60) / 1000;
+        double speed160 = (160*ratio* 2.13* 60) / 1000;
+        double speed170 = (170*ratio* 2.13* 60) / 1000;
+        setSpeed50(speed50);
+        setSpeed60(speed60);
+        setSpeed70(speed70);
+        setSpeed80(speed80);
+        setSpeed90(speed90);
+        setSpeed100(speed100);
+        setSpeed110(speed110);
+        setSpeed120(speed120);
+        setSpeed130(speed130);
+        setSpeed140(speed140);
+        setSpeed150(speed150);
+        setSpeed160(speed160);
+        setSpeed170(speed170);
+
+    }
+
+    //function to find the greatest common divisor
+    public double nwd(double a, double b) {
+
+        while (a != b) {
+            if (a > b) {
+                a -= b;
+            } else {
+                b -= a;
+            }
+        }
+        return a;
+    }
 
     public double getSpeed50() {
         return speed50;
@@ -185,92 +272,5 @@ public class Cadence {
 
     public void setAmbidextrous(double ambidextrous) {
         this.ambidextrous = ambidextrous;
-    }
-
-    public Cadence(Double chainRing, Double cog) {
-        this.chainRing = chainRing;
-        this.cog = cog;
-        skidPatches(chainRing, cog);
-        calculateRatio(chainRing, cog);
-        calculateSpeedTable();
-    }
-
-    public Cadence(Double chainRing, Double cog, Double cadence) {
-        this.chainRing = chainRing;
-        this.cog = cog;
-        this.cadence = cadence;
-        skidPatches(chainRing, cog);
-        calculateRatio(chainRing, cog);
-        calculateSpeed();
-        calculateSpeedTable();
-    }
-    public Cadence(){
-
-    }
-
-    public void calculateRatio(double chainRing, double cog) {
-        ratio = chainRing / cog;
-        setRatio(ratio);
-    }
-
-    public void skidPatches(double chainRing, double cog) {
-        double nwd = nwd(chainRing, cog);
-
-        if ((chainRing / nwd) % 2 == 0) {
-            setSkidPatch(cog / nwd);
-            setAmbidextrous(cog / nwd);
-        }
-        if (chainRing / nwd % 2 != 0) {
-            setSkidPatch(cog / nwd);
-            setAmbidextrous(cog / nwd * 2);
-        }
-    }
-
-    public void calculateSpeed() {
-        speed = (cadence * ratio * 2.13 * 60) / 1000;
-
-    }
-
-    public void calculateSpeedTable(){
-        double speed50 = (50*ratio* 2.13* 60) / 1000;
-        double speed60 = (60*ratio* 2.13* 60) / 1000;
-        double speed70 = (70*ratio* 2.13* 60) / 1000;
-        double speed80 = (80*ratio* 2.13* 60) / 1000;
-        double speed90 = (90*ratio* 2.13* 60) / 1000;
-        double speed100 = (100*ratio* 2.13* 60) / 1000;
-        double speed110 = (110*ratio* 2.13* 60) / 1000;
-        double speed120 = (120*ratio* 2.13* 60) / 1000;
-        double speed130 = (130*ratio* 2.13* 60) / 1000;
-        double speed140 = (140*ratio* 2.13* 60) / 1000;
-        double speed150 = (150*ratio* 2.13* 60) / 1000;
-        double speed160 = (160*ratio* 2.13* 60) / 1000;
-        double speed170 = (170*ratio* 2.13* 60) / 1000;
-        setSpeed50(speed50);
-        setSpeed60(speed60);
-        setSpeed70(speed70);
-        setSpeed80(speed80);
-        setSpeed90(speed90);
-        setSpeed100(speed100);
-        setSpeed110(speed110);
-        setSpeed120(speed120);
-        setSpeed130(speed130);
-        setSpeed140(speed140);
-        setSpeed150(speed150);
-        setSpeed160(speed160);
-        setSpeed170(speed170);
-
-    }
-
-    //function to find the greatest common divisor
-    public double nwd(double a, double b) {
-
-        while (a != b) {
-            if (a > b) {
-                a -= b;
-            } else {
-                b -= a;
-            }
-        }
-        return a;
     }
 }

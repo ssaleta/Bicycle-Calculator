@@ -31,29 +31,16 @@ public class MyTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable s) {
-        FixedCalculator fc = new FixedCalculator();
+        FixedCalculator fixedCalculator = new FixedCalculator();
         switch (view.getId()) {
             case R.id.input_layout_chainring:
 
-                fc.validateChainring();
+                fixedCalculator.validateChainring();
                 break;
             case R.id.input_layout_cog:
 
-                fc.validateCog();
+                fixedCalculator.validateCog();
                 break;
-            case R.id.input_layout_cadence:
-
-                fc.validateCadence();
-                break;
-           /* case R.id.input_layout_creator_chainring:
-                validateChainring();
-                break;
-            case R.id.input_layout_creator_cog:
-                validateCog();
-                break;
-            case R.id.input_layout_name:
-                validateName();
-        }*/
 
         }
     }
