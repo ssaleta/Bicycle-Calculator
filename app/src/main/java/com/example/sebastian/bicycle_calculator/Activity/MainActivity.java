@@ -26,8 +26,6 @@ public class MainActivity extends AppCompatActivity {
     ImageView roadPhoto;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
-
 
     public void createDialogInformation() {
         final Dialog dialog = new Dialog(MainActivity.this);
@@ -81,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.information) {
-           /* createDialogInformation();*/
+            createDialogInformation();
         }
         return super.onOptionsItemSelected(item);
     }

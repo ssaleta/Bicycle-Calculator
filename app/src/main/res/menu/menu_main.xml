@@ -13,6 +13,10 @@
         app:showAsAction="never"/>
     <item
         android:id="@+id/bicycle_creator"
-        android:title="bicycle Creator"
+        android:title="@string/bicycle_creator"
+        app:showAsAction="never"/>
+    <item
+        android:id="@+id/garage"
+        android:title="@string/garage"
         app:showAsAction="never"/>
 </menu>

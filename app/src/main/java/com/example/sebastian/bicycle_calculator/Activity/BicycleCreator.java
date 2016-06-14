@@ -1,6 +1,5 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,7 +16,6 @@ import com.example.sebastian.bicycle_calculator.Model.Cadence;
 import com.example.sebastian.bicycle_calculator.Model.Contact;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
-import com.example.sebastian.bicycle_calculator.Support.DatabaseHandler2;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,21 +59,16 @@ public class BicycleCreator extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         bicycleList = new ArrayList<Bicycle>();
-
         ButterKnife.bind(this);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 getBicycleValues();
-
-
                 Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch);
                 bicycleList.add(bicycle);
                 dataBaseCreate();
-
                 Intent intent = new Intent(BicycleCreator.this, Garage.class);
-                intent.putExtra("array", bicycleList);
                 startActivity(intent);
                 finish();
             }
@@ -96,39 +89,8 @@ public class BicycleCreator extends AppCompatActivity {
     }
     public void dataBaseCreate(){
         DataBaseHandler db = DataBaseHandler.getInstance(this);
-
         db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio));
-        /*db.addBicycle(new Bicycle("strzala", 5.0, 6.0,7.0,8.0));*/
-        Log.d("ratio insert", " " + ratio);
-
-        Log.d("Reading:", "Reading all bicycles..");
-       List<Bicycle> bicycles = db.getAllBicycles();
-        for (Bicycle bt : bicycles){
-            String log = "Id: " + bt.getItemId()+ " ,Name: "+ bt.getName()+ " ,Chainring: "+ bt.getChainring() + " ,Cog: " + bt.getCog()+ " ,SkidPatch:" +bt.getSkidPatch()+ " ,Ratio" +bt.getRatio();
-            Log.d("Name: ", log);
-            Log.d("skid patch", skidPatch.toString());
-
-        }
-
-    }
-    public void dataCreate(){
-        DatabaseHandler2 db = new DatabaseHandler2(this);
-        Log.d("Insert: ", "Inserting ..");
-        db.addContact(new Contact("Ravi", "9100000000"));
-        db.addContact(new Contact("Srinivas", "9199999999"));
-        db.addContact(new Contact("Tommy", "9522222222"));
-        db.addContact(new Contact("Karthik", "9533333333"));
-
-        // Reading all contacts
-        Log.d("Reading: ", "Reading all contacts..");
-        List<Contact> contacts = db.getAllContacts();
-
-        for (Contact cn : contacts) {
-            String log = "Id: "+cn.getID()+" ,Name: " + cn.getName() + " ,Phone: " + cn.getPhoneNumber();
-            // Writing Contacts to log
-            Log.d("Name: ", log);
-        }
-
-    }
+        List<Bicycle> bicycles = db.getAllBicycles();
+     }
 
 }

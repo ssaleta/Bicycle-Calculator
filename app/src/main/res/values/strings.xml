@@ -37,6 +37,8 @@
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="bicycle_creator">Bicycle creator</string>
+    <string name="garage">Garage</string>
 </resources>
 
 

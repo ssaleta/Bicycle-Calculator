@@ -2,13 +2,11 @@ package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 
 import com.example.sebastian.bicycle_calculator.Adapters.BicycleAdapter;
@@ -16,20 +14,20 @@ import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 import com.example.sebastian.bicycle_calculator.Support.ItemClickSupport;
-import com.example.sebastian.bicycle_calculator.Support.RecyclerTouchListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 public class Garage extends AppCompatActivity {
 
-    private RecyclerView mRecyclerView;
+    @Bind(R.id.bicycles_list) RecyclerView mRecyclerView;
     private BicycleAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DataBaseHandler db;
-    private ArrayList<Bicycle> bicycles;
-
-
+    private List<Bicycle> bicycleList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +35,8 @@ public class Garage extends AppCompatActivity {
         setContentView(R.layout.activity_garage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        Intent intent = getIntent();
-        Bundle getBundle = intent.getExtras();
-        db = DataBaseHandler.getInstance(this);
-        /*if (getBundle != null) {
-            bicycles = (ArrayList<Bicycle>) intent.getSerializableExtra("array");
-        }*/
-        List<Bicycle> bicycleList = db.getAllBicycles();
+        ButterKnife.bind(this);
+        getBicycles();
 
         mRecyclerView = (RecyclerView) findViewById(R.id.bicycles_list);
         mRecyclerView.setHasFixedSize(true);
@@ -52,8 +45,8 @@ public class Garage extends AppCompatActivity {
         mAdapter = new BicycleAdapter(bicycleList,this);
         mRecyclerView.setAdapter(mAdapter);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton createBicycle = (FloatingActionButton) findViewById(R.id.fab);
+        createBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Garage.this, BicycleCreator.class));
@@ -64,20 +57,16 @@ public class Garage extends AppCompatActivity {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 Intent intent = new Intent(getApplicationContext(), BicycleParameters.class);
-               Bundle extras = new Bundle();
-                extras.putSerializable("array", bicycles);
+                Bundle extras = new Bundle();
                 extras.putInt("position", position);
                 intent.putExtras(extras);
                 startActivity(intent);
-
             }
         });
     }
-
-    public interface ClickListener {
-        void onClick(View view, int position);
-        void onLongClick(View view, int position);
+    private void getBicycles(){
+        db = DataBaseHandler.getInstance(this);
+        bicycleList = db.getAllBicycles();
     }
-
 
 }

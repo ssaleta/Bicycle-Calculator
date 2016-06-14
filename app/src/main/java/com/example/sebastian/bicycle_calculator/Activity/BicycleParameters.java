@@ -1,7 +1,7 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
+
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,7 +17,6 @@ import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -78,35 +77,27 @@ public class BicycleParameters extends AppCompatActivity {
         setContentView(R.layout.activity_bicycle_parameters);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        Bundle getBundle = intent.getExtras();
+        Bundle bundle = intent.getExtras();
+        position = (Integer) bundle.get("position");
+
         db = DataBaseHandler.getInstance(this);
+        Log.e("position", "bicycle position" +position);
         bicycleList = db.getAllBicycles();
-
         FloatingActionButton deleteBicycle = (FloatingActionButton) findViewById(R.id.deleteBicycle);
-
-
-        if (getBundle != null) {
-            bicycles = (ArrayList<Bicycle>) intent.getSerializableExtra("array");
-            position = getBundle.getInt("position");
-        }
-
         setParameters();
-
         deleteBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.e("bicycleListSize", "size" + db.getAllBicycles().size());
-                Log.e("bicycleDelete", "position" + position);
-                bicycleList.remove(position);
-          /*      startActivity(new Intent(BicycleParameters.this, Garage.class));*/
-                db.deleteBicycle(bicycleList.get(position));
-                /*Log.e("bicycleListSizeAfterDelete","size" +db.getAllBicycles().size());*/
+                Bicycle deleteBicycle = db.getBicycle(position);
+                db.deleteBicycle(deleteBicycle);
+                startActivity(new Intent(BicycleParameters.this, Garage.class));
+
+                Log.e("bicycleListSizeAfterDelete", "size" + db.getAllBicycles().size());
             }
         });
 
     }
-
-
 
     public void setParameters() {
         DecimalFormat df = new DecimalFormat("##.##");

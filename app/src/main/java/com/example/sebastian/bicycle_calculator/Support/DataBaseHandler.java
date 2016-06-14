@@ -86,6 +86,7 @@ public static synchronized DataBaseHandler getInstance(Context context){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
+
         if(cursor != null){
             cursor.moveToFirst();
         }
