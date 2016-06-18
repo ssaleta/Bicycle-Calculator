@@ -30,6 +30,7 @@
     <string name="error_chainring">Fill chainring</string>
     <string name="error_cog">Fill cog</string>
     <string name="error_cadence">Fill cadence</string>
+    <string name="error_name">Fill name</string>
     <array name="nav_drawer_labels">
         <item>Fixed Gear Calculator2</item>
     </array>

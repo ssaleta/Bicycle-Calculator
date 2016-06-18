@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -64,13 +65,16 @@ public class BicycleCreator extends AppCompatActivity {
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getBicycleValues();
-                Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch);
-                bicycleList.add(bicycle);
-                dataBaseCreate();
-                Intent intent = new Intent(BicycleCreator.this, Garage.class);
-                startActivity(intent);
-                finish();
+
+                if (submitForm() == true) {
+                    getBicycleValues();
+                    Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch);
+                    bicycleList.add(bicycle);
+                    dataBaseCreate();
+                    Intent intent = new Intent(BicycleCreator.this, Garage.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
         });
 
@@ -87,13 +91,74 @@ public class BicycleCreator extends AppCompatActivity {
         Log.d("skidPatchGetBicycleValue", "ratio" + cadence.getRatio());
 
     }
-    public void dataBaseCreate(){
+
+    public void dataBaseCreate() {
         DataBaseHandler db = DataBaseHandler.getInstance(this);
         db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio));
         List<Bicycle> bicycles = db.getAllBicycles();
-        for(Bicycle bicycle: bicycles){
-            String log = "Id: " +bicycle.getItemId()+ " , Name " +bicycle.getName();
-            Log.e("DatabaseCreate"," log: " +log);
+        for (Bicycle bicycle : bicycles) {
+            String log = "Id: " + bicycle.getItemId() + " , Name " + bicycle.getName();
+            Log.e("DatabaseCreate", " log: " + log);
         }
-     }
+    }
+
+    private boolean submitForm() {
+        if (!validateName()) {
+            inputLayoutName.setErrorEnabled(true);
+            return false;
+        }
+        if (!validateChainring()) {
+            inputLayoutCreatorChainring.setErrorEnabled(true);
+            return false;
+        }
+        if (!validateCog()) {
+            inputLayoutCreatorCog.setErrorEnabled(true);
+            return false;
+        }
+
+        return true;
+    }
+
+    public boolean validateName() {
+
+        if (setCreatorName.getText().toString().trim().isEmpty()) {
+            inputLayoutName.setError(getString(R.string.error_name));
+            requestFocus(setCreatorName);
+            return false;
+        } else {
+            inputLayoutName.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateChainring() {
+
+        if (setCreatorChainring.getText().toString().trim().isEmpty()) {
+            inputLayoutCreatorChainring.setError(getString(R.string.error_chainring));
+            requestFocus(setCreatorChainring);
+            return false;
+        } else {
+
+            inputLayoutCreatorChainring.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateCog() {
+
+        if (setCreatorCog.getText().toString().trim().isEmpty()) {
+            inputLayoutCreatorCog.setError(getString(R.string.error_cog));
+            requestFocus(setCreatorCog);
+            return false;
+        } else {
+            inputLayoutCreatorCog.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
 }

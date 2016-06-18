@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.MyTextWatcher;
+import com.example.sebastian.bicycle_calculator.Support.SubmitForm;
 
 import java.text.DecimalFormat;
 
@@ -71,8 +73,9 @@ public class FixedCalculator extends AppCompatActivity {
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                submitForm();
-                calculate();
+                if(submitForm() == true){
+                    calculate();
+                }
             }
         });
     }
@@ -83,15 +86,16 @@ public class FixedCalculator extends AppCompatActivity {
         setCadence.addTextChangedListener(new MyTextWatcher(setCadence));
     }
 
-    private void submitForm() {
+    private boolean submitForm() {
         if (!validateChainring()) {
             inputLayoutChainring.setErrorEnabled(true);
-            return;
+            return false;
         }
         if (!validateCog()) {
             inputLayoutCog.setErrorEnabled(true);
-            return;
+            return false;
         }
+       return true;
     }
 
 
@@ -174,12 +178,14 @@ public class FixedCalculator extends AppCompatActivity {
     }
 
     public boolean validateChainring() {
-
+        Log.e("validateChainring", "jestem na poczatku metody");
         if (setChainring.getText().toString().trim().isEmpty()) {
+            Log.e("validateChainring", "jestem na w ifie");
             inputLayoutChainring.setError(getString(R.string.error_chainring));
             requestFocus(setChainring);
             return false;
         } else {
+            Log.e("validateChainring", "jestem na w elsie");
             inputLayoutChainring.setErrorEnabled(false);
         }
         return true;
