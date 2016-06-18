@@ -91,6 +91,9 @@ public class BicycleCreator extends AppCompatActivity {
         DataBaseHandler db = DataBaseHandler.getInstance(this);
         db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio));
         List<Bicycle> bicycles = db.getAllBicycles();
+        for(Bicycle bicycle: bicycles){
+            String log = "Id: " +bicycle.getItemId()+ " , Name " +bicycle.getName();
+            Log.e("DatabaseCreate"," log: " +log);
+        }
      }
-
 }

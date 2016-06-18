@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 
 import com.example.sebastian.bicycle_calculator.Adapters.BicycleAdapter;
@@ -14,6 +15,7 @@ import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 import com.example.sebastian.bicycle_calculator.Support.ItemClickSupport;
+import com.example.sebastian.bicycle_calculator.Support.SimpleItemTouchHelperCallback;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,11 @@ public class Garage extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new BicycleAdapter(bicycleList,this);
         mRecyclerView.setAdapter(mAdapter);
+
+        ItemTouchHelper.Callback callback =
+                new SimpleItemTouchHelperCallback(mAdapter);
+        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
+        touchHelper.attachToRecyclerView(mRecyclerView);
 
         FloatingActionButton createBicycle = (FloatingActionButton) findViewById(R.id.fab);
         createBicycle.setOnClickListener(new View.OnClickListener() {

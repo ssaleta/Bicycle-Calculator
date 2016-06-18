@@ -30,6 +30,7 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String KEY_SKIDPATCH = "skidPatch";
     private static final String KEY_RATIO = "ratio";
 
+private static final String[] allColumns = {KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO};
 
 
 
@@ -45,7 +46,7 @@ public static synchronized DataBaseHandler getInstance(Context context){
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-     /*   String CREATE_BICYCLES_TABLE = "CREATE TABLE " + TABLE_BICYCLES + "(" + KEY_ID + "INTEGER PRIMARY KEY," + KEY_NAME + "TEXT," + KEY_CHAINRING +"REAL," + KEY_COG + "INTEGER" + ")";*/
+
         String CREATE_BICYCLES_TABLE = "CREATE TABLE " + TABLE_BICYCLES +
                 "("
                 + KEY_ID + "  INTEGER PRIMARY KEY,"
@@ -77,12 +78,13 @@ public static synchronized DataBaseHandler getInstance(Context context){
 
 
 
+
         //insterting row
         db.insert(TABLE_BICYCLES, null, values);
         db.close();
 
     }
-    public Bicycle getBicycle(int id){
+/*    public Bicycle getBicycle(int id){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor;
         cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
@@ -92,8 +94,75 @@ public static synchronized DataBaseHandler getInstance(Context context){
         }
         Bicycle bicycle = new Bicycle(Integer.parseInt(cursor.getString(0)), cursor.getString(1),Double.parseDouble(cursor.getString(2)), Double.parseDouble(cursor.getString(3)), Double.parseDouble(cursor.getString(4)), Double.parseDouble(cursor.getString(5)));
         return bicycle;
+    }*/
 
+    /*     public Bicycle getBicycle(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+        Log.e("getBicycleId", "id ; " +id);
+*//*        Cursor cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);*//**//**//**//**//*
+        Cursor cursor = db.query(TABLE_BICYCLES, allColumns, KEY_ID + "=?", new String[]{"" +id}, null,null,null);
+        Log.e("getBicycle", "cursor" + cursor.getCount());
+      Log.d("getBicycle", " name" + cursor.getString(0));
+        Log.d("getBicycle", " chainring" + cursor.getString(2));
+        Log.d("getBicycle", " cog" + cursor.getString(3));
+        Log.d("getBicycle", " skidpatch" + cursor.getString(4));
+        Log.d("getBicycle", " ratio" + cursor.getString(5));
+        List<Bicycle> bicycles = cursorToList(cursor);
+        Log.e("getBicycle", "wielkosc petli" +bicycles.size());
+        if(bicycles.size() == 1){
+            Log.e("getBicycle", "jestem w petli sieze1");
+            return bicycles.get(0);
+        }else {
+            return null;
+        }
+    }*/
+
+       public Bicycle getBicycle(int id){
+        SQLiteDatabase db = this.getReadableDatabase();
+         Cursor cursor = db.query(TABLE_BICYCLES, allColumns, KEY_ID, null, null, null, null);
+        List<Bicycle> bicycles = cursorToList(cursor);
+
+        cursor.moveToFirst();
+        for (int i=1; i <= id; i++){
+            if(cursor.isLast()){
+                Log.e("getBicycle","jestem w ifie");
+                cursor.moveToFirst();
+
+                return bicycles.get(id);
+            }
+            Log.e("getbicycle","movetonext");
+            cursor.moveToNext();
+        }
+        return bicycles.get(id);
     }
+
+    private List<Bicycle> cursorToList(Cursor cursor){
+        List<Bicycle>  bicycles = new ArrayList<>();
+        if(cursor != null){
+
+            if(cursor.getCount() > 0){
+                while (cursor.moveToNext()){
+                    Bicycle bicycle = new Bicycle();
+                    int id = Integer.parseInt(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_ID)));
+                    String name = cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_NAME));
+                    Double chainring = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_CHAINRING)));
+                    Double cog = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_COG)));
+                    Double skidPatch = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_SKIDPATCH)));
+                    Double ratio = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_RATIO)));
+                    bicycle.setItemId(id);
+                    bicycle.setName(name);
+                    bicycle.setChainring(chainring);
+                    bicycle.setCog(cog);
+                    bicycle.setSkidPatch(skidPatch);
+                    bicycle.setRatio(ratio);
+                    bicycles.add(bicycle);
+                    Log.e("cursorToList", "id" +bicycle.getItemId());
+                }
+            }
+        }
+        return bicycles;
+    }
+
     public List<Bicycle> getAllBicycles(){
         List<Bicycle> bicycleList = new ArrayList<Bicycle>();
             String selectQuery = "SELECT  * FROM " + TABLE_BICYCLES;
@@ -103,13 +172,13 @@ public static synchronized DataBaseHandler getInstance(Context context){
             do{
                 Bicycle bicycle = new Bicycle();
                 bicycle.setName(cursor.getString(1));
+                Log.d("getAllbicycles", "id" + cursor.getInt(0));
                 Log.d("getAllbicycles", " name" + cursor.getString(1));
                 Log.d("getAllbicycles", " chainring" + cursor.getString(2));
                 Log.d("getAllbicycles", " cog" + cursor.getString(3));
                 Log.d("getAllbicycles", " skidpatch" + cursor.getString(4));
                 Log.d("getAllbicycles", " ratio" + cursor.getString(5));
                 bicycle.setChainring(Double.parseDouble(cursor.getString(2)));
-
                 bicycle.setCog(Double.parseDouble(cursor.getString(3)));
                 bicycle.setSkidPatch(Double.parseDouble(cursor.getString(4)));
                 bicycle.setRatio(Double.parseDouble(cursor.getString(5)));

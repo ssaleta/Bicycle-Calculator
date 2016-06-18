@@ -4,6 +4,7 @@ package com.example.sebastian.bicycle_calculator.Support;
  * Created by Sebastian on 2016-06-12.
  */
 public class CalculatorSupport {
+
     private double cadence = 0;
     private double chainRing;
     private double skidPatch;

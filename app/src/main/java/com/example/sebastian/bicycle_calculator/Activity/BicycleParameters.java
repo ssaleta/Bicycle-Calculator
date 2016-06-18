@@ -90,9 +90,10 @@ public class BicycleParameters extends AppCompatActivity {
             public void onClick(View view) {
                 Log.e("bicycleListSize", "size" + db.getAllBicycles().size());
                 Bicycle deleteBicycle = db.getBicycle(position);
+                Log.e("deleteBicycle", "deleteBicycle" + deleteBicycle);
                 db.deleteBicycle(deleteBicycle);
-                startActivity(new Intent(BicycleParameters.this, Garage.class));
 
+                startActivity(new Intent(BicycleParameters.this, Garage.class));
                 Log.e("bicycleListSizeAfterDelete", "size" + db.getAllBicycles().size());
             }
         });

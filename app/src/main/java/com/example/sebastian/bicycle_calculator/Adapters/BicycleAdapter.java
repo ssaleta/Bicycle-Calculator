@@ -2,6 +2,7 @@ package com.example.sebastian.bicycle_calculator.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
+import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
@@ -23,7 +26,7 @@ import butterknife.ButterKnife;
 /**
  * Created by Sebastian on 2016-05-21.
  */
-public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHolder> {
+public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHolder> implements ItemTouchHelperAdapter {
 
     private static final String TAG = BicycleAdapter.class.getSimpleName();
     private ArrayList<Bicycle> bicycleList;
@@ -55,27 +58,42 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
             holder.setBicycleCog.setText(df.format(bicycles.get(position).getCog()));
             holder.setBicycleSkidPatch.setText(df.format(bicycles.get(position).getSkidPatch()));
             holder.setBicycleRatio.setText(df.format(bicycles.get(position).getRatio()));
+         }
 
-      /*  DecimalFormat df = new DecimalFormat("##.##");
-        Double chainring = bicycleList.get(position).getChainring();
-        Double cog = bicycleList.get(position).getCog();
-        holder.setBicycleChainring.setText(df.format(chainring));
-        holder.setBicycleCog.setText(df.format(cog));
-        holder.bicycleName.setText(bicycleList.get(position).getName());
-        holder.setBicycleRatio.setText(df.format(bicycleList.get(position).getRatio()));
-        holder.setBicycleSkidPatch.setText(df.format(bicycleList.get(position).getSkidPatch()));*/
-    }
-
-
-   /* @Override
-    public int getItemCount() {
-        return bicycleList.size();
-    }*/
    @Override
    public int getItemCount() {
        return bicycles.size();
    }
-    public class ViewHolder extends RecyclerView.ViewHolder {
+
+    @Override
+    public boolean onItemMove(int fromPosition, int toPosition) {
+        if(fromPosition < toPosition){
+            for (int i = fromPosition; i < toPosition; i++){
+                Collections.swap(bicycles, i, i + 1);
+            }}else {
+            for (int i = fromPosition; i > toPosition; i--) {
+                Collections.swap(bicycles, i, i - 1);
+            }
+        }
+        notifyItemMoved(fromPosition, toPosition);
+        return true;
+
+
+    }
+
+    @Override
+    public void onItemDismiss(int position) {
+
+        bicycles.remove(position);
+        DataBaseHandler db = DataBaseHandler.getInstance(context.getApplicationContext());
+        Log.e("bicycle adapter", "position " +position);
+        db.deleteBicycle(db.getBicycle(position));
+        notifyDataSetChanged();
+
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements ItemTouchHelperViewHolder {
         @Bind(R.id.list_bicycle_name)
         TextView bicycleName;
         @Bind(R.id.list_bicycle_chainring)
@@ -108,7 +126,16 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
         }
 
 
+        @Override
+        public void onItemSelected() {
+            itemView.setBackgroundColor(Color.LTGRAY);
 
+        }
+
+        @Override
+        public void onItemClear() {
+        itemView.setBackgroundColor(0);
+        }
     }
 
 }
