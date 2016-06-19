@@ -42,6 +42,10 @@ public class BicycleAdapter extends RecyclerView.Adapter<BicycleAdapter.ViewHold
         this.context = context;
     }
 
+
+
+
+
     @Override
     public BicycleAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = ((Activity) context).getLayoutInflater();

@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="80dp"
+    android:id="@+id/swipe">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:background="#66ddff00"
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="160dp"
+        android:weightSum="1"
+        android:layout_height="match_parent">
+        <!--What you want to show-->
+    </LinearLayout>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="60dp"
     android:background="?android:selectableItemBackground"
     >
+
     <TextView
         android:id="@+id/list_bicycle_name"
         android:layout_width="100dp"
@@ -88,4 +101,6 @@
         android:layout_marginTop="5dp"
         android:layout_below="@+id/set_list_bicycle_cog"/>
 
+
 </RelativeLayout>
+    </com.daimajia.swipe.SwipeLayout>

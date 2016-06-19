@@ -1,6 +1,12 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -8,9 +14,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 import android.view.View;
 
+import com.daimajia.swipe.SwipeLayout;
 import com.example.sebastian.bicycle_calculator.Adapters.BicycleAdapter;
+import com.example.sebastian.bicycle_calculator.Adapters.BicycleSwipeAdapter;
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
@@ -25,11 +34,14 @@ import butterknife.ButterKnife;
 
 public class Garage extends AppCompatActivity {
 
-    @Bind(R.id.bicycles_list) RecyclerView mRecyclerView;
-    private BicycleAdapter mAdapter;
+    @Bind(R.id.bicycles_list)
+    RecyclerView mRecyclerView;
+    /*private BicycleAdapter mAdapter;*/
     private RecyclerView.LayoutManager mLayoutManager;
     private DataBaseHandler db;
     private List<Bicycle> bicycleList;
+    private BicycleSwipeAdapter mAdapter;
+    private Paint p = new Paint();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,13 +56,15 @@ public class Garage extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mAdapter = new BicycleAdapter(bicycleList,this);
+        /*mAdapter = new BicycleAdapter(bicycleList, this);*/
+        mAdapter = new BicycleSwipeAdapter(bicycleList, this);
         mRecyclerView.setAdapter(mAdapter);
 
-        ItemTouchHelper.Callback callback =
+
+       /* ItemTouchHelper.Callback callback =
                 new SimpleItemTouchHelperCallback(mAdapter);
         ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);
+        touchHelper.attachToRecyclerView(mRecyclerView);*/
 
         FloatingActionButton createBicycle = (FloatingActionButton) findViewById(R.id.fab);
         createBicycle.setOnClickListener(new View.OnClickListener() {
@@ -71,9 +85,10 @@ public class Garage extends AppCompatActivity {
             }
         });
     }
-    private void getBicycles(){
+
+    private void getBicycles() {
         db = DataBaseHandler.getInstance(this);
         bicycleList = db.getAllBicycles();
     }
 
-}
+    }

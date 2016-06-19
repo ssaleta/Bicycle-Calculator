@@ -167,6 +167,7 @@ public class FixedCalculator extends AppCompatActivity {
         if(id == R.id.garage){
             Intent intent = new Intent(FixedCalculator.this, Garage.class);
             startActivity(intent);
+
         }
         return super.onOptionsItemSelected(item);
     }
