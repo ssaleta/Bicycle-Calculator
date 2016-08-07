@@ -2,6 +2,7 @@ package com.example.sebastian.bicycle_calculator.Adapters;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 import com.daimajia.swipe.SimpleSwipeListener;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
+import com.daimajia.swipe.implments.SwipeItemMangerImpl;
+import com.example.sebastian.bicycle_calculator.Activity.Garage;
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
@@ -30,6 +33,8 @@ public class BicycleSwipeAdapter extends RecyclerSwipeAdapter<BicycleSwipeAdapte
 
     private Context context;
     private List<Bicycle> bicycles;
+
+
 
     public BicycleSwipeAdapter(List<Bicycle> bicycleList, Context context) {
         this.bicycles = bicycleList;
@@ -55,12 +60,12 @@ public class BicycleSwipeAdapter extends RecyclerSwipeAdapter<BicycleSwipeAdapte
        viewHolder.swipeLayout.addSwipeListener(new SimpleSwipeListener(){
            @Override
            public void onOpen(SwipeLayout layout) {
-               Log.d("jestem w "+getClass(), "onOpen");
-               bicycles.remove(position);
-               DataBaseHandler db = DataBaseHandler.getInstance(context.getApplicationContext());
-               Log.e("bicycle adapter", "position " +position);
-               db.deleteBicycle(db.getBicycle(position));
-               notifyDataSetChanged();
+               try {
+                   getBikeToDelete(position);
+               }catch (IndexOutOfBoundsException e){
+                  Log.e("empty array", "empty array");
+
+               }
            }
 
        });

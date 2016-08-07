@@ -3,10 +3,16 @@ package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
@@ -20,7 +26,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class BicycleParameters extends AppCompatActivity {
+public class BicycleParameters extends BaseActivity {
 
     @Bind(R.id.name_param)
     TextView nameParam;
@@ -70,16 +76,22 @@ public class BicycleParameters extends AppCompatActivity {
     private List<Bicycle> bicycleList;
     private DataBaseHandler db;
 
+    private NavigationView navigationView;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bicycle_parameters);
         ButterKnife.bind(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         position = (Integer) bundle.get("position");
-
         db = DataBaseHandler.getInstance(this);
         Log.e("position", "bicycle position" +position);
         bicycleList = db.getAllBicycles();
@@ -92,7 +104,6 @@ public class BicycleParameters extends AppCompatActivity {
                 Bicycle deleteBicycle = db.getBicycle(position);
                 Log.e("deleteBicycle", "deleteBicycle" + deleteBicycle);
                 db.deleteBicycle(deleteBicycle);
-
                 startActivity(new Intent(BicycleParameters.this, Garage.class));
                 Log.e("bicycleListSizeAfterDelete", "size" + db.getAllBicycles().size());
             }

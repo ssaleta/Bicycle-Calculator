@@ -3,14 +3,19 @@ package com.example.sebastian.bicycle_calculator.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.Model.Cadence;
@@ -24,7 +29,7 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class BicycleCreator extends AppCompatActivity {
+public class BicycleCreator extends BaseActivity {
 
     @Bind(R.id.input_layout_name)
     TextInputLayout inputLayoutName;
@@ -52,6 +57,10 @@ public class BicycleCreator extends AppCompatActivity {
         return bicycleList;
     }
 
+    private NavigationView navigationView;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +70,7 @@ public class BicycleCreator extends AppCompatActivity {
         setSupportActionBar(toolbar);
         bicycleList = new ArrayList<Bicycle>();
         ButterKnife.bind(this);
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override

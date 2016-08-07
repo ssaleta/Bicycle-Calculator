@@ -31,15 +31,19 @@
     <string name="error_cog">Fill cog</string>
     <string name="error_cadence">Fill cadence</string>
     <string name="error_name">Fill name</string>
-    <array name="nav_drawer_labels">
-        <item>Fixed Gear Calculator2</item>
-    </array>
+
+    <string name="nav_item_fixed_calculator">Fixed Calculator</string>
+    <string name="nav_item_bicycle_creator">Bicycle Creator</string>
+    <string name="nav_item_garage">Garage</string>
+
     <string name="title_activity_navigation_drawer">NavigationDrawer</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="bicycle_creator">Bicycle creator</string>
     <string name="garage">Garage</string>
+    <string name="title_activity_bicycle_parameters">BicycleParameters</string>
+
 </resources>
 
 

@@ -9,13 +9,19 @@ import android.graphics.Paint;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.NavigationView;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 
 import com.daimajia.swipe.SwipeLayout;
 import com.example.sebastian.bicycle_calculator.Adapters.BicycleAdapter;
@@ -32,16 +38,21 @@ import java.util.List;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class Garage extends AppCompatActivity {
+public class Garage extends BaseActivity{
 
     @Bind(R.id.bicycles_list)
     RecyclerView mRecyclerView;
-    /*private BicycleAdapter mAdapter;*/
+
     private RecyclerView.LayoutManager mLayoutManager;
     private DataBaseHandler db;
     private List<Bicycle> bicycleList;
     private BicycleSwipeAdapter mAdapter;
-    private Paint p = new Paint();
+
+    private NavigationView navigationView;
+    private DrawerLayout mDrawerLayout;
+    private ListView mDrawerList;
+    private ActionBarDrawerToggle mDrawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,26 +62,19 @@ public class Garage extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         getBicycles();
-
         mRecyclerView = (RecyclerView) findViewById(R.id.bicycles_list);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        /*mAdapter = new BicycleAdapter(bicycleList, this);*/
         mAdapter = new BicycleSwipeAdapter(bicycleList, this);
         mRecyclerView.setAdapter(mAdapter);
-
-
-       /* ItemTouchHelper.Callback callback =
-                new SimpleItemTouchHelperCallback(mAdapter);
-        ItemTouchHelper touchHelper = new ItemTouchHelper(callback);
-        touchHelper.attachToRecyclerView(mRecyclerView);*/
 
         FloatingActionButton createBicycle = (FloatingActionButton) findViewById(R.id.fab);
         createBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(Garage.this, BicycleCreator.class));
+                finish();
             }
         });
 
@@ -82,6 +86,7 @@ public class Garage extends AppCompatActivity {
                 extras.putInt("position", position);
                 intent.putExtras(extras);
                 startActivity(intent);
+
             }
         });
     }
@@ -90,5 +95,17 @@ public class Garage extends AppCompatActivity {
         db = DataBaseHandler.getInstance(this);
         bicycleList = db.getAllBicycles();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.information) {
+       }
+        return super.onOptionsItemSelected(item);
+    }
     }

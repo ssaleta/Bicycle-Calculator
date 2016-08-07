@@ -1,22 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="80dp"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
     android:id="@+id/swipe">
     <LinearLayout
         android:orientation="horizontal"
-        android:background="#66ddff00"
+        android:background="@color/Plum"
         android:id="@+id/bottom_wrapper"
         android:layout_width="160dp"
         android:weightSum="1"
-        android:layout_height="match_parent">
-        <!--What you want to show-->
+        android:layout_height="60dp"
+        android:gravity="center">
+
+        <ImageView
+            android:id="@+id/trash"
+            android:src="@drawable/ic_delete_24dp"
+            android:layout_width="27dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"/>
+
+
+
+
     </LinearLayout>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="?android:selectableItemBackground"
-    >
+    android:background="?android:selectableItemBackground">
+
 
     <TextView
         android:id="@+id/list_bicycle_name"
@@ -96,10 +107,11 @@
         android:text="14"/>
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@android:color/black"
-        android:layout_marginTop="5dp"
-        android:layout_below="@+id/set_list_bicycle_cog"/>
+        android:layout_height="3dp"
+        android:background="@color/Plum"
+
+        android:layout_below="@+id/set_list_bicycle_cog"
+        />
 
 
 </RelativeLayout>

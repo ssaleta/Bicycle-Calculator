@@ -1,10 +1,17 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
+import android.annotation.TargetApi;
+import android.app.ActivityOptions;
 import android.app.Dialog;
 import android.content.Intent;
+import android.os.Build;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,19 +19,19 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.MyTextWatcher;
-import com.example.sebastian.bicycle_calculator.Support.SubmitForm;
 
 import java.text.DecimalFormat;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
-public class FixedCalculator extends AppCompatActivity {
+public class FixedCalculator extends BaseActivity {
 
     @Bind(R.id.set_cog)
     EditText setCog;
@@ -64,23 +71,27 @@ public class FixedCalculator extends AppCompatActivity {
     private double cadence;
     private CalculatorSupport calculatorSupport;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fixed_calculator);
+        setContentView(R.layout.activity_fixed_calculator);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         setCalculatorBasicParameters();
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(submitForm() == true){
+                if (submitForm() == true) {
                     calculate();
                 }
             }
         });
     }
 
-    private void setCalculatorBasicParameters(){
+
+    private void setCalculatorBasicParameters() {
         setCog.addTextChangedListener(new MyTextWatcher(setCog));
         setChainring.addTextChangedListener(new MyTextWatcher(setChainring));
         setCadence.addTextChangedListener(new MyTextWatcher(setCadence));
@@ -95,7 +106,7 @@ public class FixedCalculator extends AppCompatActivity {
             inputLayoutCog.setErrorEnabled(true);
             return false;
         }
-       return true;
+        return true;
     }
 
 
@@ -105,7 +116,7 @@ public class FixedCalculator extends AppCompatActivity {
 
         convertStringBikeParametersToDouble();
         if (setCadence.getText().toString().matches("")) {
-            calculatorSupport = new CalculatorSupport(chainring,cog);
+            calculatorSupport = new CalculatorSupport(chainring, cog);
         } else {
             calculatorSupport = new CalculatorSupport(chainring, cog, cadence);
         }
@@ -119,16 +130,82 @@ public class FixedCalculator extends AppCompatActivity {
         speed80.setText(oneDecimalPlace.format(calculatorSupport.getSpeed80()));
         speed90.setText(oneDecimalPlace.format(calculatorSupport.getSpeed90()));
         speed100.setText(oneDecimalPlace.format(calculatorSupport.getSpeed100()));
-
-
     }
 
-    private void convertStringBikeParametersToDouble(){
+    private void convertStringBikeParametersToDouble() {
         chainring = Double.parseDouble(setChainring.getText().toString());
         cog = Double.parseDouble(setCog.getText().toString());
-        if(!setCadence.getText().toString().matches("") ) {
+        if (!setCadence.getText().toString().matches("")) {
             cadence = Double.parseDouble(setCadence.getText().toString());
         }
+    }
+
+
+
+
+
+    private void requestFocus(View view) {
+        if (view.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
+    }
+
+    public boolean validateChainring() {
+
+        if (setChainring.getText().toString().trim().isEmpty()) {
+            inputLayoutChainring.setError(getString(R.string.error_chainring));
+            requestFocus(setChainring);
+            return false;
+        } else {
+            inputLayoutChainring.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+    public boolean validateCog() {
+        if (setCog.getText().toString().trim().isEmpty()) {
+            inputLayoutCog.setError(getString(R.string.error_cog));
+            requestFocus(setCog);
+            return false;
+        } else {
+            inputLayoutCog.setErrorEnabled(false);
+        }
+        return true;
+    }
+
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if (setCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("")) {
+            return;
+        } else {
+            outState.putDouble("saved_cadence", calculatorSupport.getCadence());
+            outState.putDouble("saved_chainring", calculatorSupport.getChainRing());
+            outState.putDouble("saved_Cog", calculatorSupport.getCog());
+        }
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        if (setCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("")) {
+            submitForm();
+        } else {
+            chainring = (savedInstanceState.getDouble("saved_chainring"));
+            cog = (savedInstanceState.getDouble("saved_chainring"));
+            calculate();
+        }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.information) {
+        createDialogInformation();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void createDialogInformation() {
@@ -143,91 +220,5 @@ public class FixedCalculator extends AppCompatActivity {
             }
         });
         dialog.show();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        if (id == R.id.information) {
-            createDialogInformation();
-        }
-        if (id == R.id.bicycle_creator) {
-            Intent intent = new Intent(FixedCalculator.this, BicycleCreator.class);
-            startActivity(intent);
-        }
-        if(id == R.id.garage){
-            Intent intent = new Intent(FixedCalculator.this, Garage.class);
-            startActivity(intent);
-
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private void requestFocus(View view) {
-        if (view.requestFocus()) {
-            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
-        }
-    }
-
-    public boolean validateChainring() {
-        Log.e("validateChainring", "jestem na poczatku metody");
-        if (setChainring.getText().toString().trim().isEmpty()) {
-            Log.e("validateChainring", "jestem na w ifie");
-            inputLayoutChainring.setError(getString(R.string.error_chainring));
-            requestFocus(setChainring);
-            return false;
-        } else {
-            Log.e("validateChainring", "jestem na w elsie");
-            inputLayoutChainring.setErrorEnabled(false);
-        }
-        return true;
-    }
-
-    public boolean validateCog() {
-
-        if (setCog.getText().toString().trim().isEmpty()) {
-            inputLayoutCog.setError(getString(R.string.error_cog));
-            requestFocus(setCog);
-            return false;
-        } else {
-            inputLayoutCog.setErrorEnabled(false);
-        }
-        return true;
-    }
-
-
-
-    @Override
-    protected void onSaveInstanceState(Bundle outState){
-        super.onSaveInstanceState(outState);
-
-        if(setCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("") ){
-            return;
-        }else {
-            outState.putDouble("saved_cadence", calculatorSupport.getCadence());
-            outState.putDouble("saved_chainring", calculatorSupport.getChainRing());
-            outState.putDouble("saved_Cog", calculatorSupport.getCog());
-        }
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        if(setCadence.getText().toString().matches("") && setChainring.getText().toString().matches("") && setCog.getText().toString().matches("") ) {
-            submitForm();
-        }else {
-            chainring = (savedInstanceState.getDouble("saved_chainring"));
-            cog = (savedInstanceState.getDouble("saved_chainring"));
-            calculate();
-        }
     }
 }
