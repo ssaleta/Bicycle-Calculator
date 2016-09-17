@@ -12,7 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
@@ -40,6 +42,8 @@ public class BicycleParameters extends BaseActivity {
     TextView setSkidPatchAmbidextrous;
     @Bind(R.id.set_ratio_param)
     TextView setRatioParam;
+    @Bind(R.id.set_tire_size_param)
+    TextView setTireSizeParam;
     @Bind(R.id.speed_60_param)
     TextView speed60;
     @Bind(R.id.speed_70_param)
@@ -65,12 +69,14 @@ public class BicycleParameters extends BaseActivity {
     @Bind(R.id.speed_170_param)
     TextView speed170;
 
+
     private String name;
     private Double chainRing;
     private Double cog;
     private Double skidPatch;
     private Double skidPatchAmb;
     private Double ratio;
+    private String tireSize;
     private ArrayList<Bicycle> bicycles;
     private int position;
     private List<Bicycle> bicycleList;
@@ -105,9 +111,11 @@ public class BicycleParameters extends BaseActivity {
                 Log.e("deleteBicycle", "deleteBicycle" + deleteBicycle);
                 db.deleteBicycle(deleteBicycle);
                 startActivity(new Intent(BicycleParameters.this, Garage.class));
+                finish();
                 Log.e("bicycleListSizeAfterDelete", "size" + db.getAllBicycles().size());
             }
         });
+
 
     }
 
@@ -121,12 +129,14 @@ public class BicycleParameters extends BaseActivity {
         skidPatch = cadence.getSkidPatch();
         skidPatchAmb = cadence.getAmbidextrous();
         ratio = cadence.getRatio();
+        tireSize = bicycleList.get(position).getTireSize();
         nameParam.setText(name);
         setChainringParam.setText(df.format(chainRing));
         setCogParam.setText(df.format(cog));
         setSkidPatchParam.setText(df.format(skidPatch));
         setSkidPatchAmbidextrous.setText(df.format(skidPatchAmb));
         setRatioParam.setText(df.format(ratio));
+        setTireSizeParam.setText(tireSize);
         speed60.setText(sp.format(cadence.getSpeed60()));
         speed70.setText(sp.format(cadence.getSpeed70()));
         speed80.setText(sp.format(cadence.getSpeed80()));

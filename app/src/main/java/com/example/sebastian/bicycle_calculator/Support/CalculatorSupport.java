@@ -5,7 +5,10 @@ package com.example.sebastian.bicycle_calculator.Support;
  */
 public class CalculatorSupport {
 
+    private double wheelCircuit;
     private double cadence = 0;
+    private double cadenceFromSpeed;
+    private double userSpeed = 0;
     private double chainRing;
     private double skidPatch;
     private double cog;
@@ -35,15 +38,50 @@ public class CalculatorSupport {
         calculateSpeedTable();
     }
 
-    public CalculatorSupport(Double chainRing, Double cog, Double cadence) {
+    public CalculatorSupport(double chainRing, double cog, double wheelCircuit) {
+        this.chainRing = chainRing;
+        this.cog = cog;
+        this.wheelCircuit = wheelCircuit;
+        skidPatches(chainRing, cog);
+        calculateRatio(chainRing, cog);
+        calculateSpeedTable();
+    }
+
+  /*  public CalculatorSupport(double chainRing, double cog, double wheelCircuit, double cadence) {
         this.chainRing = chainRing;
         this.cog = cog;
         this.cadence = cadence;
+        this.wheelCircuit = wheelCircuit;
         skidPatches(chainRing, cog);
         calculateRatio(chainRing, cog);
         calculateSpeed();
         calculateSpeedTable();
+        calculateCadence();
+    }*/
+    public CalculatorSupport(double chainRing, double cog, double wheelCircuit, double cadence, double userSpeed) {
+        this.chainRing = chainRing;
+        this.cog = cog;
+        this.cadence = cadence;
+        this.wheelCircuit = wheelCircuit;
+        this.userSpeed = userSpeed;
+        skidPatches(chainRing, cog);
+        calculateRatio(chainRing, cog);
+        calculateSpeed();
+        calculateSpeedTable();
+        calculateCadence();
     }
+   /* public CalculatorSupport(double chainRing, double cog, double wheelCircuit, double userSpeed){
+        this.chainRing = chainRing;
+        this.cog = cog;
+        this.wheelCircuit = wheelCircuit;
+        this.userSpeed = userSpeed;
+        skidPatches(chainRing, cog);
+        calculateRatio(chainRing, cog);
+        calculateCadence();
+    }*/
+
+
+
 
     public CalculatorSupport(){
     }
@@ -68,24 +106,30 @@ public class CalculatorSupport {
     }
 
     public void calculateSpeed() {
-        speed = (cadence * ratio * 2.13 * 60) / 1000;
+        speed = (cadence * ratio * wheelCircuit * 60) / 1000;
 
     }
 
+    public void calculateCadence(){
+        cadenceFromSpeed = (userSpeed * 1000)/(ratio * wheelCircuit * 60);
+    }
+
+
+
     public void calculateSpeedTable(){
-        double speed50 = (50*ratio* 2.13* 60) / 1000;
-        double speed60 = (60*ratio* 2.13* 60) / 1000;
-        double speed70 = (70*ratio* 2.13* 60) / 1000;
-        double speed80 = (80*ratio* 2.13* 60) / 1000;
-        double speed90 = (90*ratio* 2.13* 60) / 1000;
-        double speed100 = (100*ratio* 2.13* 60) / 1000;
-        double speed110 = (110*ratio* 2.13* 60) / 1000;
-        double speed120 = (120*ratio* 2.13* 60) / 1000;
-        double speed130 = (130*ratio* 2.13* 60) / 1000;
-        double speed140 = (140*ratio* 2.13* 60) / 1000;
-        double speed150 = (150*ratio* 2.13* 60) / 1000;
-        double speed160 = (160*ratio* 2.13* 60) / 1000;
-        double speed170 = (170*ratio* 2.13* 60) / 1000;
+        double speed50 = (50*ratio* wheelCircuit* 60) / 1000;
+        double speed60 = (60*ratio* wheelCircuit* 60) / 1000;
+        double speed70 = (70*ratio* wheelCircuit* 60) / 1000;
+        double speed80 = (80*ratio* wheelCircuit* 60) / 1000;
+        double speed90 = (90*ratio* wheelCircuit* 60) / 1000;
+        double speed100 = (100*ratio* wheelCircuit* 60) / 1000;
+        double speed110 = (110*ratio* wheelCircuit* 60) / 1000;
+        double speed120 = (120*ratio* wheelCircuit* 60) / 1000;
+        double speed130 = (130*ratio* wheelCircuit* 60) / 1000;
+        double speed140 = (140*ratio* wheelCircuit* 60) / 1000;
+        double speed150 = (150*ratio* wheelCircuit* 60) / 1000;
+        double speed160 = (160*ratio* wheelCircuit* 60) / 1000;
+        double speed170 = (170*ratio* wheelCircuit* 60) / 1000;
         setSpeed50(speed50);
         setSpeed60(speed60);
         setSpeed70(speed70);
@@ -273,5 +317,12 @@ public class CalculatorSupport {
 
     public void setAmbidextrous(double ambidextrous) {
         this.ambidextrous = ambidextrous;
+    }
+    public double getCadenceFromSpeed() {
+        return cadenceFromSpeed;
+    }
+
+    public void setCadenceFromSpeed(double cadenceFromSpeed) {
+        this.cadenceFromSpeed = cadenceFromSpeed;
     }
 }

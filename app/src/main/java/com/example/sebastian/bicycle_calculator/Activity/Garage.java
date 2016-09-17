@@ -47,7 +47,6 @@ public class Garage extends BaseActivity{
     private DataBaseHandler db;
     private List<Bicycle> bicycleList;
     private BicycleSwipeAdapter mAdapter;
-
     private NavigationView navigationView;
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerList;
@@ -86,6 +85,7 @@ public class Garage extends BaseActivity{
                 extras.putInt("position", position);
                 intent.putExtras(extras);
                 startActivity(intent);
+                finish();
 
             }
         });

@@ -20,8 +20,8 @@
         </activity>
         <activity
             android:name=".Activity.FixedCalculator"
-            android:windowSoftInputMode="stateUnchanged|adjustResize"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateUnchanged|adjustResize" />
         <activity
             android:name=".Activity.BicycleCreator"
             android:label="@string/title_activity_bicycle_creator"
@@ -30,16 +30,18 @@
             android:name=".Activity.Garage"
             android:label="@string/title_activity_garage"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.BicycleParameters"  android:label="@string/title_activity_bicycle_parameters"
+        <activity
+            android:name=".Activity.BicycleParameters"
+            android:label="@string/title_activity_bicycle_parameters"
             android:theme="@style/AppTheme.NoActionBar" />
-             ATTENTION: This was auto-generated to add Google Play services to your project for
-             App Indexing.  See https://g.co/AppIndexing/AndroidStudio for more information.
+        ATTENTION: This was auto-generated to add Google Play services to your project for
+        App Indexing. See https://g.co/AppIndexing/AndroidStudio for more information.
         -->
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".Activity.BaseActivity"></activity>
+        <activity android:name=".Activity.BaseActivity" />
     </application>
 
 </manifest>

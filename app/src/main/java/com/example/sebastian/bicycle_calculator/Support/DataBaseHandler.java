@@ -29,8 +29,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
     private static final String KEY_COG = "cog";
     private static final String KEY_SKIDPATCH = "skidPatch";
     private static final String KEY_RATIO = "ratio";
+    private static final String KEY_TIRE_SIZE = "tireSize";
 
-private static final String[] allColumns = {KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO};
+private static final String[] allColumns = {KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO, KEY_TIRE_SIZE};
 
 
 
@@ -54,7 +55,8 @@ public static synchronized DataBaseHandler getInstance(Context context){
                 + KEY_CHAINRING + " REAL,"
                 + KEY_COG + " REAL,"
                 + KEY_SKIDPATCH + " REAL,"
-                + KEY_RATIO + " REAL" +
+                + KEY_RATIO + " REAL,"
+                + KEY_TIRE_SIZE + " REAL" +
                 ")";
 
         db.execSQL(CREATE_BICYCLES_TABLE);
@@ -75,7 +77,7 @@ public static synchronized DataBaseHandler getInstance(Context context){
         values.put(KEY_COG, bicycle.getCog());
         values.put(KEY_SKIDPATCH, bicycle.getSkidPatch());
         values.put(KEY_RATIO, bicycle.getRatio());
-
+        values.put(KEY_TIRE_SIZE, bicycle.getTireSize());
 
 
 
@@ -149,12 +151,14 @@ public static synchronized DataBaseHandler getInstance(Context context){
                     Double cog = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_COG)));
                     Double skidPatch = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_SKIDPATCH)));
                     Double ratio = Double.parseDouble(cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_RATIO)));
+                    String tireSize = cursor.getString(cursor.getColumnIndex(DataBaseHandler.KEY_TIRE_SIZE));
                     bicycle.setItemId(id);
                     bicycle.setName(name);
                     bicycle.setChainring(chainring);
                     bicycle.setCog(cog);
                     bicycle.setSkidPatch(skidPatch);
                     bicycle.setRatio(ratio);
+                    bicycle.setTireSize(tireSize);
                     bicycles.add(bicycle);
                     Log.e("cursorToList", "id" +bicycle.getItemId());
                 }
@@ -182,6 +186,7 @@ public static synchronized DataBaseHandler getInstance(Context context){
                 bicycle.setCog(Double.parseDouble(cursor.getString(3)));
                 bicycle.setSkidPatch(Double.parseDouble(cursor.getString(4)));
                 bicycle.setRatio(Double.parseDouble(cursor.getString(5)));
+                bicycle.setTireSize(cursor.getString(6));
                 bicycleList.add(bicycle);
 
             }while(cursor.moveToNext());
@@ -206,6 +211,7 @@ public static synchronized DataBaseHandler getInstance(Context context){
         values.put(KEY_COG,bicycle.getCog());
         values.put(KEY_SKIDPATCH,bicycle.getSkidPatch());
         values.put(KEY_RATIO,bicycle.getRatio());
+        values.put(KEY_TIRE_SIZE, bicycle.getTireSize());
         return db.update(TABLE_BICYCLES, values, KEY_ID + " = ?", new String[] {String.valueOf(bicycle.getItemId())});
     }
     public void deleteBicycle(Bicycle bicycle){

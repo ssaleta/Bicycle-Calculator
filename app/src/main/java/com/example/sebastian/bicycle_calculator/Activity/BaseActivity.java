@@ -86,8 +86,9 @@ public class BaseActivity extends AppCompatActivity {
             @TargetApi(Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void run() {
+                Log.e("baseActivity", "nazwa" + getClass().getName());
+                Log.e("activityClass", "nazwa" +activityClass.getName());
                 Intent intent = new Intent(BaseActivity.this, activityClass);
-
                 startActivity(intent);
                 finish();
             }

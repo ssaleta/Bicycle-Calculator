@@ -13,14 +13,17 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.Model.Cadence;
 import com.example.sebastian.bicycle_calculator.Model.Contact;
 import com.example.sebastian.bicycle_calculator.R;
+import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
 
 import java.util.ArrayList;
@@ -45,12 +48,16 @@ public class BicycleCreator extends BaseActivity {
     EditText setCreatorCog;
     @Bind(R.id.createBtn)
     Button createBtn;
+    @Bind(R.id.spinner)
+    Spinner spinner;
     private String name;
-    private Double cog;
-    private Double chainring;
+    private double cog;
+    private double chainring;
     private ArrayList<Bicycle> bicycleList;
-    private Double ratio;
-    private Double skidPatch;
+    private double ratio;
+    private double skidPatch;
+    private double wheelCircuit;
+    private String tireSize;
 
 
     public ArrayList<Bicycle> getBicycleList() {
@@ -70,15 +77,16 @@ public class BicycleCreator extends BaseActivity {
         setSupportActionBar(toolbar);
         bicycleList = new ArrayList<Bicycle>();
         ButterKnife.bind(this);
-
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wheel_sizes, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (submitForm() == true) {
                     getBicycleValues();
-                    Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch);
+                    Bicycle bicycle = new Bicycle(name, chainring, cog, ratio, skidPatch, tireSize);
                     bicycleList.add(bicycle);
                     dataBaseCreate();
                     Intent intent = new Intent(BicycleCreator.this, Garage.class);
@@ -87,7 +95,6 @@ public class BicycleCreator extends BaseActivity {
                 }
             }
         });
-
     }
 
     public void getBicycleValues() {
@@ -95,16 +102,15 @@ public class BicycleCreator extends BaseActivity {
         name = setCreatorName.getText().toString();
         chainring = Double.parseDouble(setCreatorChainring.getText().toString());
         cog = Double.parseDouble(setCreatorCog.getText().toString());
-        Cadence cadence = new Cadence(chainring, cog);
-        ratio = cadence.getRatio();
-        skidPatch = cadence.getSkidPatch();
-        Log.d("skidPatchGetBicycleValue", "ratio" + cadence.getRatio());
-
+        getWheelCircle();
+        CalculatorSupport calculatorSupport= new CalculatorSupport(chainring, cog, wheelCircuit);
+        ratio = calculatorSupport.getRatio();
+        skidPatch = calculatorSupport.getSkidPatch();
     }
 
     public void dataBaseCreate() {
         DataBaseHandler db = DataBaseHandler.getInstance(this);
-        db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio));
+        db.addBicycle(new Bicycle(name, chainring, cog, skidPatch, ratio, tireSize));
         List<Bicycle> bicycles = db.getAllBicycles();
         for (Bicycle bicycle : bicycles) {
             String log = "Id: " + bicycle.getItemId() + " , Name " + bicycle.getName();
@@ -171,4 +177,39 @@ public class BicycleCreator extends BaseActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+    public void getWheelCircle() {
+        int spinnerId = spinner.getSelectedItemPosition();
+        switch (spinnerId) {
+            case 0:
+                wheelCircuit = 2.13;
+                tireSize = "700x23C";
+                break;
+            case 1:
+                wheelCircuit = 2.10;
+                tireSize="700x18c";
+                break;
+            case 2:
+                wheelCircuit = 2.11;
+                tireSize="700x20c";
+                break;
+            case 3:
+                wheelCircuit = 2.146;
+                tireSize="700x25c";
+                break;
+            case 4:
+                wheelCircuit = 2.149;
+                tireSize="700x28c";
+                break;
+            case 5:
+                wheelCircuit = 2.174;
+                tireSize="700x32c";
+                break;
+            case 6:
+                wheelCircuit = 2.205;
+                tireSize="700x35c";
+                break;
+        }
+    }
+
+
 }

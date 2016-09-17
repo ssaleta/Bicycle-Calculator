@@ -74,10 +74,32 @@
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <TextView
-        android:id="@+id/skid_patch_param"
+        android:id="@+id/tire_size_param"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cog_param"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/track_bike_draw"
+        android:text="Tire Size"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <TextView
+        android:id="@+id/set_tire_size_param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/set_cog_param"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@+id/tire_size_param"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+
+    <TextView
+        android:id="@+id/skid_patch_param"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tire_size_param"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/track_bike_draw"
@@ -88,7 +110,7 @@
         android:id="@+id/set_skid_patch_param"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_cog_param"
+        android:layout_below="@+id/set_tire_size_param"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/skid_patch_param"
@@ -99,7 +121,7 @@
         android:id="@+id/or_param"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_cog_param"
+        android:layout_below="@+id/set_tire_size_param"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/set_skid_patch_param"
@@ -110,7 +132,7 @@
         android:id="@+id/set_skid_ambidextrous_param"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_cog_param"
+        android:layout_below="@+id/set_tire_size_param"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/or_param"
@@ -121,7 +143,7 @@
         android:id="@+id/ambidextrous_param"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/set_cog_param"
+        android:layout_below="@+id/set_tire_size_param"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@+id/set_skid_ambidextrous_param"
@@ -154,8 +176,8 @@
     <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="27dp"
-        android:layout_below="@+id/track_bike_draw"
+        android:layout_marginTop="15dp"
+        android:layout_below="@+id/ratio_param"
         android:layout_centerHorizontal="true"
         android:id="@+id/tableLayout">
 
@@ -415,8 +437,9 @@
         android:layout_marginLeft="@dimen/fab_margin"
         android:layout_marginRight="@dimen/fab_margin"
         android:layout_below="@+id/tableLayout"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="26dp" />
+        android:layout_alignParentEnd="true" />"/>
+
+
 </RelativeLayout>
 
 
