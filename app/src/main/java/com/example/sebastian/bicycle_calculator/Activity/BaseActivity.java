@@ -1,14 +1,11 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.annotation.TargetApi;
-import android.app.ActivityOptions;
-import android.app.Dialog;
+
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -19,8 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.ListView;
+
 
 import com.example.sebastian.bicycle_calculator.R;
 

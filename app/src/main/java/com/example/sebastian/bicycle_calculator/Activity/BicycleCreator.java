@@ -50,6 +50,7 @@ public class BicycleCreator extends BaseActivity {
     Button createBtn;
     @Bind(R.id.spinner)
     Spinner spinner;
+
     private String name;
     private double cog;
     private double chainring;

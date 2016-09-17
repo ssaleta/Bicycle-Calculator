@@ -1,32 +1,23 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
-import android.annotation.TargetApi;
 import android.app.Dialog;
-import android.content.Intent;
-import android.os.Build;
-import android.os.Handler;
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.ViewSwitcher;
 
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.MyTextWatcher;
 
-import org.w3c.dom.Text;
+
 
 import java.text.DecimalFormat;
 
@@ -82,8 +73,6 @@ public class FixedCalculator extends BaseActivity {
     @Bind(R.id.show_skid_patch_for_ambidextrous)
     TextView or;
 
-   /* @Bind(R.id.image_cog)
-    ImageSwitcher imageSwitcher;*/
 
     private Integer images[] = {R.drawable.surplace, R.drawable.surplace15};
 
@@ -113,35 +102,10 @@ public class FixedCalculator extends BaseActivity {
                 }
             }
         });
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wheel_sizes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.wheel_sizes, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
-
     }
-
-   /* private void initializeSwitcher(){
-        imageSwitcher.setFactory(new ViewSwitcher.ViewFactory() {
-            @Override
-            public View makeView() {
-                ImageView imageView = new ImageView(FixedCalculator.this);
-                return imageView;
-            }
-        });
-        imageSwitcher.setInAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_in_left));
-        imageSwitcher.setOutAnimation(AnimationUtils.loadAnimation(this, android.R.anim.slide_out_right));
-    }
-    public void setImage(){
-        final ImageSwitcher imageSwitcher = (ImageSwitcher) findViewById(R.id.image_cog);
-        Log.e("ImageSwitcher", "ustawiam zdjecie");
-        if(calculatorSupport.getSkidPatch() > 9){
-            imageSwitcher.setImageResource(R.drawable.surplace);
-            Log.e("ImageSwitcher", "zdjecie1");
-        }else{
-            imageSwitcher.setImageResource(R.drawable.header);
-            Log.e("ImageSwitcher", "zdjecie2");
-        }
-    }*/
-
 
     private void setCalculatorBasicParameters() {
         setCog.addTextChangedListener(new MyTextWatcher(setCog));
@@ -170,10 +134,7 @@ public class FixedCalculator extends BaseActivity {
         convertStringBikeParametersToDouble();
         if (setCadence.getText().toString().matches("") && setUserSpeed.getText().toString().matches("")) {
             calculatorSupport = new CalculatorSupport(chainring, cog);
-        }
-       /* if (setCadence.getText().toString().matches("") && !setUserSpeed.getText().toString().matches("")) {
-            calculatorSupport = new CalculatorSupport(chainring, cog, wheelCircuit, userSpeed);*/
-         else {
+        } else {
             calculatorSupport = new CalculatorSupport(chainring, cog, wheelCircuit, cadence, userSpeed);
         }
         showGearRatio.setText(twoDecimalPlaces.format(calculatorSupport.getRatio()));
@@ -206,9 +167,6 @@ public class FixedCalculator extends BaseActivity {
             userSpeed = Double.parseDouble(setUserSpeed.getText().toString());
         }
     }
-
-
-
 
 
     private void requestFocus(View view) {
@@ -270,7 +228,7 @@ public class FixedCalculator extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.information) {
-        createDialogInformation();
+            createDialogInformation();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -289,10 +247,9 @@ public class FixedCalculator extends BaseActivity {
         dialog.show();
     }
 
-    public void getWheelCircle(){
+    public void getWheelCircle() {
         int spinnerId = spinner.getSelectedItemPosition();
-        switch(spinnerId)
-        {
+        switch (spinnerId) {
             case 0:
                 wheelCircuit = 2.13;
                 break;
@@ -301,7 +258,7 @@ public class FixedCalculator extends BaseActivity {
                 break;
             case 2:
                 wheelCircuit = 2.11;
-                 break;
+                break;
             case 3:
                 wheelCircuit = 2.146;
                 break;
@@ -315,8 +272,5 @@ public class FixedCalculator extends BaseActivity {
                 wheelCircuit = 2.205;
                 break;
         }
-    }
-    public void showPhoto(double skidPatch){
-
     }
 }
