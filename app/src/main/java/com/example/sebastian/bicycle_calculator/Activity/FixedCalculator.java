@@ -12,15 +12,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.MyTextWatcher;
-
-
-
 import java.text.DecimalFormat;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 
@@ -91,14 +86,12 @@ public class FixedCalculator extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
-       /* initializeSwitcher();*/
         setCalculatorBasicParameters();
         calculateBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (submitForm() == true) {
                     calculate();
-                 /*   setImage();*/
                 }
             }
         });
@@ -148,10 +141,10 @@ public class FixedCalculator extends BaseActivity {
         speed80.setText(oneDecimalPlace.format(calculatorSupport.getSpeed80()));
         speed90.setText(oneDecimalPlace.format(calculatorSupport.getSpeed90()));
         speed100.setText(oneDecimalPlace.format(calculatorSupport.getSpeed100()));
-        rotatePerMinute.setText("rot/min");
-        kph.setText("km/h");
-        ambidextrous.setText("(ambidextrous)");
-        or.setText("or");
+        rotatePerMinute.setText(R.string.cadence_in_rotation_per_minute);
+        kph.setText(R.string.speed_kilometers_per_hour);
+        ambidextrous.setText(R.string.ambidextrous);
+        or.setText(R.string.or);
 
 
     }

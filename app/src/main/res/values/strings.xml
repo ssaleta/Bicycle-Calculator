@@ -25,6 +25,10 @@
     <string name="error_chainring">Fill chainring</string>
     <string name="error_cog">Fill cog</string>
     <string name="error_name">Fill name</string>
+    <string name="speed_kilometers_per_hour">km/h</string>
+    <string name="cadence_in_rotation_per_minute">rot/min</string>
+    <string name="ambidextrous">(ambidextrous)</string>
+    <string name="or">or</string>
 
     <string name="nav_item_fixed_calculator">Fixed Calculator</string>
     <string name="nav_item_bicycle_creator">Bicycle Creator</string>

@@ -42,7 +42,6 @@ public class BaseActivity extends AppCompatActivity {
                 if(item.isChecked()) item.setChecked(false);
                 else item.setChecked(true);
                 mDrawerLayout.closeDrawers();
-
                 switch (item.getItemId()){
                     case R.id.nav_fixed_calc:
                        goToActivity(FixedCalculator.class);
