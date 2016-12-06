@@ -1,9 +1,13 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
+<<<<<<< HEAD
 
 import android.app.Dialog;
 
 import android.content.pm.ActivityInfo;
+=======
+import android.app.Dialog;
+>>>>>>> 7b71dabc3692828733e48970fe8fa1b832c27eb5
 import android.support.design.widget.TextInputLayout;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -71,6 +75,12 @@ public class FixedCalculator extends BaseActivity {
     @Bind(R.id.show_skid_patch_for_ambidextrous)
     TextView or;
 
+<<<<<<< HEAD
+=======
+
+    private Integer images[] = {R.drawable.surplace, R.drawable.surplace15};
+
+>>>>>>> 7b71dabc3692828733e48970fe8fa1b832c27eb5
     private double chainring;
     private double cog;
     private double cadence;
@@ -140,10 +150,19 @@ public class FixedCalculator extends BaseActivity {
         speed80.setText(oneDecimalPlace.format(calculatorSupport.getSpeed80()));
         speed90.setText(oneDecimalPlace.format(calculatorSupport.getSpeed90()));
         speed100.setText(oneDecimalPlace.format(calculatorSupport.getSpeed100()));
+<<<<<<< HEAD
         rotatePerMinute.setText("rot/min");
         kph.setText("km/h");
         ambidextrous.setText("(ambidextrous)");
         or.setText("or");
+=======
+        rotatePerMinute.setText(R.string.cadence_in_rotation_per_minute);
+        kph.setText(R.string.speed_kilometers_per_hour);
+        ambidextrous.setText(R.string.ambidextrous);
+        or.setText(R.string.or);
+
+
+>>>>>>> 7b71dabc3692828733e48970fe8fa1b832c27eb5
     }
 
     private void convertStringBikeParametersToDouble() {
@@ -157,6 +176,10 @@ public class FixedCalculator extends BaseActivity {
         }
     }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 7b71dabc3692828733e48970fe8fa1b832c27eb5
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
