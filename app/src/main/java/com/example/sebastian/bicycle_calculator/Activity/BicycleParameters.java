@@ -2,26 +2,17 @@ package com.example.sebastian.bicycle_calculator.Activity;
 
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
 import com.example.sebastian.bicycle_calculator.Model.Cadence;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -82,16 +73,11 @@ public class BicycleParameters extends BaseActivity {
     private List<Bicycle> bicycleList;
     private DataBaseHandler db;
 
-    private NavigationView navigationView;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bicycle_parameters);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -99,24 +85,19 @@ public class BicycleParameters extends BaseActivity {
         Bundle bundle = intent.getExtras();
         position = (Integer) bundle.get("position");
         db = DataBaseHandler.getInstance(this);
-        Log.e("position", "bicycle position" +position);
+        Log.e("position", "bicycle position" + position);
         bicycleList = db.getAllBicycles();
         FloatingActionButton deleteBicycle = (FloatingActionButton) findViewById(R.id.deleteBicycle);
         setParameters();
         deleteBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.e("bicycleListSize", "size" + db.getAllBicycles().size());
                 Bicycle deleteBicycle = db.getBicycle(position);
-                Log.e("deleteBicycle", "deleteBicycle" + deleteBicycle);
                 db.deleteBicycle(deleteBicycle);
                 startActivity(new Intent(BicycleParameters.this, Garage.class));
                 finish();
-                Log.e("bicycleListSizeAfterDelete", "size" + db.getAllBicycles().size());
             }
         });
-
-
     }
 
     public void setParameters() {

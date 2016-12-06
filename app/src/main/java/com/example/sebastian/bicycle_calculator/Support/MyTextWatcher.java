@@ -14,7 +14,7 @@ public class MyTextWatcher implements TextWatcher {
     private View view;
 
 
-  public MyTextWatcher(View view){
+    public MyTextWatcher(View view) {
         this.view = view;
     }
 
@@ -34,14 +34,11 @@ public class MyTextWatcher implements TextWatcher {
         FixedCalculator fixedCalculator = new FixedCalculator();
         switch (view.getId()) {
             case R.id.input_layout_chainring:
-
                 fixedCalculator.validateChainring();
                 break;
             case R.id.input_layout_cog:
-
                 fixedCalculator.validateCog();
                 break;
-
         }
     }
 }

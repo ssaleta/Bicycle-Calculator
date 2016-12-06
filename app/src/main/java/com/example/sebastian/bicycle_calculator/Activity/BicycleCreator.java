@@ -1,27 +1,20 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
 import android.support.design.widget.TextInputLayout;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.Spinner;
 
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
-import com.example.sebastian.bicycle_calculator.Model.Cadence;
-import com.example.sebastian.bicycle_calculator.Model.Contact;
 import com.example.sebastian.bicycle_calculator.R;
 import com.example.sebastian.bicycle_calculator.Support.CalculatorSupport;
 import com.example.sebastian.bicycle_calculator.Support.DataBaseHandler;
@@ -60,24 +53,17 @@ public class BicycleCreator extends BaseActivity {
     private String tireSize;
 
 
-    public ArrayList<Bicycle> getBicycleList() {
-        return bicycleList;
-    }
-
-    private NavigationView navigationView;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bicycle_creator);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar(toolbar);
         bicycleList = new ArrayList<Bicycle>();
         ButterKnife.bind(this);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,R.array.wheel_sizes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.wheel_sizes, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -98,12 +84,11 @@ public class BicycleCreator extends BaseActivity {
     }
 
     public void getBicycleValues() {
-
         name = setCreatorName.getText().toString();
         chainring = Double.parseDouble(setCreatorChainring.getText().toString());
         cog = Double.parseDouble(setCreatorCog.getText().toString());
         getWheelCircle();
-        CalculatorSupport calculatorSupport= new CalculatorSupport(chainring, cog, wheelCircuit);
+        CalculatorSupport calculatorSupport = new CalculatorSupport(chainring, cog, wheelCircuit);
         ratio = calculatorSupport.getRatio();
         skidPatch = calculatorSupport.getSkidPatch();
     }
@@ -177,6 +162,7 @@ public class BicycleCreator extends BaseActivity {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
+
     public void getWheelCircle() {
         int spinnerId = spinner.getSelectedItemPosition();
         switch (spinnerId) {
@@ -186,30 +172,28 @@ public class BicycleCreator extends BaseActivity {
                 break;
             case 1:
                 wheelCircuit = 2.10;
-                tireSize="700x18c";
+                tireSize = "700x18c";
                 break;
             case 2:
                 wheelCircuit = 2.11;
-                tireSize="700x20c";
+                tireSize = "700x20c";
                 break;
             case 3:
                 wheelCircuit = 2.146;
-                tireSize="700x25c";
+                tireSize = "700x25c";
                 break;
             case 4:
                 wheelCircuit = 2.149;
-                tireSize="700x28c";
+                tireSize = "700x28c";
                 break;
             case 5:
                 wheelCircuit = 2.174;
-                tireSize="700x32c";
+                tireSize = "700x32c";
                 break;
             case 6:
                 wheelCircuit = 2.205;
-                tireSize="700x35c";
+                tireSize = "700x35c";
                 break;
         }
     }
-
-
 }

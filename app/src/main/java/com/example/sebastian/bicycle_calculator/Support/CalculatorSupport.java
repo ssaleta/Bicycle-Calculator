@@ -47,17 +47,6 @@ public class CalculatorSupport {
         calculateSpeedTable();
     }
 
-  /*  public CalculatorSupport(double chainRing, double cog, double wheelCircuit, double cadence) {
-        this.chainRing = chainRing;
-        this.cog = cog;
-        this.cadence = cadence;
-        this.wheelCircuit = wheelCircuit;
-        skidPatches(chainRing, cog);
-        calculateRatio(chainRing, cog);
-        calculateSpeed();
-        calculateSpeedTable();
-        calculateCadence();
-    }*/
     public CalculatorSupport(double chainRing, double cog, double wheelCircuit, double cadence, double userSpeed) {
         this.chainRing = chainRing;
         this.cog = cog;
@@ -70,18 +59,6 @@ public class CalculatorSupport {
         calculateSpeedTable();
         calculateCadence();
     }
-   /* public CalculatorSupport(double chainRing, double cog, double wheelCircuit, double userSpeed){
-        this.chainRing = chainRing;
-        this.cog = cog;
-        this.wheelCircuit = wheelCircuit;
-        this.userSpeed = userSpeed;
-        skidPatches(chainRing, cog);
-        calculateRatio(chainRing, cog);
-        calculateCadence();
-    }*/
-
-
-
 
     public CalculatorSupport(){
     }
@@ -113,8 +90,6 @@ public class CalculatorSupport {
     public void calculateCadence(){
         cadenceFromSpeed = (userSpeed * 1000)/(ratio * wheelCircuit * 60);
     }
-
-
 
     public void calculateSpeedTable(){
         double speed50 = (50*ratio* wheelCircuit* 60) / 1000;

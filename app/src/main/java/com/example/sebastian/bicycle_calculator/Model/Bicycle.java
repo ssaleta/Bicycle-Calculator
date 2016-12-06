@@ -1,7 +1,7 @@
 package com.example.sebastian.bicycle_calculator.Model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
+
 
 /**
  * Created by Sebastian on 2016-05-21.
@@ -15,10 +15,6 @@ public class Bicycle implements Serializable {
     private double skidPatch;
     private double ratio;
     private String tireSize;
-    private static int counter = 0;
-
-
-
 
 
     public int getItemId() {

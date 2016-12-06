@@ -1,6 +1,7 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -47,17 +48,13 @@ public class Garage extends BaseActivity{
     private DataBaseHandler db;
     private List<Bicycle> bicycleList;
     private BicycleSwipeAdapter mAdapter;
-    private NavigationView navigationView;
-    private DrawerLayout mDrawerLayout;
-    private ListView mDrawerList;
-    private ActionBarDrawerToggle mDrawerToggle;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_garage);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         getBicycles();
@@ -67,7 +64,6 @@ public class Garage extends BaseActivity{
         mRecyclerView.setLayoutManager(mLayoutManager);
         mAdapter = new BicycleSwipeAdapter(bicycleList, this);
         mRecyclerView.setAdapter(mAdapter);
-
         FloatingActionButton createBicycle = (FloatingActionButton) findViewById(R.id.fab);
         createBicycle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +72,6 @@ public class Garage extends BaseActivity{
                 finish();
             }
         });
-
         ItemClickSupport.addTo(mRecyclerView).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
@@ -86,11 +81,9 @@ public class Garage extends BaseActivity{
                 intent.putExtras(extras);
                 startActivity(intent);
                 finish();
-
             }
         });
     }
-
     private void getBicycles() {
         db = DataBaseHandler.getInstance(this);
         bicycleList = db.getAllBicycles();
@@ -100,7 +93,6 @@ public class Garage extends BaseActivity{
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();

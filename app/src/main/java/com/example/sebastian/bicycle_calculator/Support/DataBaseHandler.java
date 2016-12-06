@@ -6,9 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-
 import com.example.sebastian.bicycle_calculator.Model.Bicycle;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -86,38 +84,6 @@ public static synchronized DataBaseHandler getInstance(Context context){
         db.close();
 
     }
-/*    public Bicycle getBicycle(int id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor;
-        cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);
-
-        if(cursor != null){
-            cursor.moveToFirst();
-        }
-        Bicycle bicycle = new Bicycle(Integer.parseInt(cursor.getString(0)), cursor.getString(1),Double.parseDouble(cursor.getString(2)), Double.parseDouble(cursor.getString(3)), Double.parseDouble(cursor.getString(4)), Double.parseDouble(cursor.getString(5)));
-        return bicycle;
-    }*/
-
-    /*     public Bicycle getBicycle(int id){
-        SQLiteDatabase db = this.getReadableDatabase();
-        Log.e("getBicycleId", "id ; " +id);
-*//*        Cursor cursor = db.query(TABLE_BICYCLES, new String[]{KEY_ID, KEY_NAME, KEY_CHAINRING, KEY_COG, KEY_SKIDPATCH, KEY_RATIO}, KEY_ID + "=?", new String[]{String.valueOf(id)}, null, null, null, null);*//**//**//**//**//*
-        Cursor cursor = db.query(TABLE_BICYCLES, allColumns, KEY_ID + "=?", new String[]{"" +id}, null,null,null);
-        Log.e("getBicycle", "cursor" + cursor.getCount());
-      Log.d("getBicycle", " name" + cursor.getString(0));
-        Log.d("getBicycle", " chainring" + cursor.getString(2));
-        Log.d("getBicycle", " cog" + cursor.getString(3));
-        Log.d("getBicycle", " skidpatch" + cursor.getString(4));
-        Log.d("getBicycle", " ratio" + cursor.getString(5));
-        List<Bicycle> bicycles = cursorToList(cursor);
-        Log.e("getBicycle", "wielkosc petli" +bicycles.size());
-        if(bicycles.size() == 1){
-            Log.e("getBicycle", "jestem w petli sieze1");
-            return bicycles.get(0);
-        }else {
-            return null;
-        }
-    }*/
 
        public Bicycle getBicycle(int id){
         SQLiteDatabase db = this.getReadableDatabase();
