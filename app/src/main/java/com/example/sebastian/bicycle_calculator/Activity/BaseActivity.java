@@ -1,10 +1,7 @@
 package com.example.sebastian.bicycle_calculator.Activity;
 
 import android.annotation.TargetApi;
-<<<<<<< HEAD
-=======
 
->>>>>>> 7b71dabc3692828733e48970fe8fa1b832c27eb5
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -19,10 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-<<<<<<< HEAD
-=======
 
->>>>>>> 7b71dabc3692828733e48970fe8fa1b832c27eb5
 
 import com.example.sebastian.bicycle_calculator.R;
 
